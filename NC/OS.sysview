@@ -1,17 +1,7 @@
-/*
-  OS.sysview – INTERNAL ONLY
-  Hinweis:
-  Alle Werte sind simuliert.
-  Keine echte Hardware wird gelesen.
-  Alles läuft im tmp-Speicher.
-*/
-
 OS.sysview = {
 
   // interne Simulation statt echter Hardware
-  read: function() {
-
-    // OS.hardware ist nur ein internes Objekt
+  read() {
     let hw = OS.hardware || {};
 
     return {
@@ -25,18 +15,15 @@ OS.sysview = {
   },
 
   // interne mathematische Zuwachsberechnung
-  growth: function(hw) {
-
-    let g = {};
-
-    g.usb = hw.usb > hw.net ? hw.usb - hw.net : 0;
-    g.ssd = hw.ssd > hw.net ? hw.ssd - hw.net : 0;
-
-    return g;
+  growth(hw) {
+    return {
+      usb: hw.usb > hw.net ? hw.usb - hw.net : 0,
+      ssd: hw.ssd > hw.net ? hw.ssd - hw.net : 0
+    };
   },
 
   // interne Bewertung (Alpha/Beta/Gamma)
-  rating: function(hw) {
+  rating(hw) {
 
     if (hw.cpu < 20 && hw.ram < 4)
       return "Gamma · Rot";
@@ -53,23 +40,12 @@ OS.sysview = {
     return "Gamma · Grün";
   },
 
-  // interne Anzeige (nur tmp, keine Speicherung)
-  display: function() {
+  // interne Gefahrstufe (für masterboot.start)
+  danger(hw) {
+    let r = this.rating(hw);
 
-    let hw = this.read();
-    let g  = this.growth(hw);
-    let r  = this.rating(hw);
-
-    console.log("CPU:", hw.cpu + "%");
-    console.log("RAM:", hw.ram + " GB");
-    console.log("GPU:", hw.gpu + "%");
-    console.log("NET:", hw.net + " Mbit/s");
-    console.log("USB:", hw.usb + " Mbit/s");
-    console.log("SSD:", hw.ssd + " MB/s");
-
-    console.log("Zuwachs USB:", g.usb);
-    console.log("Zuwachs SSD:", g.ssd);
-
-    console.log("Bewertung:", r);
+    if (r.includes("Rot")) return "ROT";
+    if (r.includes("Gelb")) return "GELB";
+    return "GRÜN";
   }
 };
