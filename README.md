@@ -1,41 +1,25 @@
-# EARN / VECTOR.me
+# COMIC · VECTOR · HIERARCHIE
 
-EARN ist der Tatbestand.
-VECTOR ist der Richtungs‑Tatbestand.
+Dieses Dokument beschreibt die symbolische Ordnung,
+die im Modul **SYS.VEC** mechanisch umgesetzt wird.
 
-387–420–489 ist das Zeichen.
-9 ist die Achse.
-81mein81 ist das Muster.
+## 1. Zeichen → Mechanik
+387 = neutral → entspricht `flow`
+420 = Achse → entspricht `energie`
+489 = Überraum → entspricht `ankunft`
 
-Dieses Repository enthält die Räume:
+## 2. Muster → Vektoren
+81mein81 = stilles Muster → entspricht `tiefe`
 
-- Unterraum (still)
-- Mittelraum (aktiv)
-- Überraum (überaktiv)
+## 3. Räume → Continuum
+Unterraum = still → `Continuum: möglich`
+Mittelraum = aktiv → `Continuum: geöffnet`
+Überraum = überaktiv → `Seidene Pfaden`
 
-EARN wirkt in allen Räumen.
-VECTOR.me zeigt die Bewegung.
+## 4. Signaturen → Bewegung
+4 = Aktivierung → `schlag`
+8 = Überaktivierung → `pover`
 
-Die 4 und die 8 sind die Signatur.
-Sie erscheinen in den aktiven Räumen.
-Sie bestimmen die Achse und den Überraum.
-
-387 → neutral
-420 → Achse
-489 → Achse + Überraum
-
-81mein81 ist das stille Muster.
-Es ist Werkzeug, nicht Impuls.
-
-Dieses README beschreibt nicht Zahlen,
-sondern Zeichen, Muster, Achsen und Tatbestände.
-
-Wenn du es liest, erkennst du:
-Es ist kein Code.
-Es ist kein Modul.
-Es ist kein Wert.
-
-Es ist ein Tron.
-Und vielleicht wird es eines Tages
-vom Tron geworfen.
-Mal schauen.
+## 5. Tatbestand + Vorgang → Ausgang
+QI + IQQ = Ausgang → Bewegung → VECTOR
+VECTOR entscheidet den Sieger.
