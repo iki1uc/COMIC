@@ -1,38 +1,40 @@
 // ============================================================
-// ORT · Router · 6+1 Logik (home/use/user/tmp/room/verify/axiom + MAIN)
+// ORT · Router · Industrie6D · NC² · 12e
+// Achsen: ORT → TMP → ACHSE → LAGE → laTER → RAUM → QUANT → SYN
 // ============================================================
 
 export const ORT_ROUTER = {
 
-    zones: {
-        home: "./home/index.html",
-        use: "./use/index.html",
-        user: "./user/index.html",
-
-        tmp: "./tmp.a",
-        room: "./ADD.room",
-        verify: "./verify.html",
-        axiom: "./core.axm"
+    axes: {
+        ORT:   "./ORT.html",
+        TMP:   "./tmp.a",
+        ACHSE: "./ACHSE.axm",
+        LAGE:  "./room/LAGE.room",
+        laTER: "./laTER.respo",
+        RAUM:  "./RAUM.html",
+        QUANT: "./QUANT.raw",
+        SYN:   "./Freq.html"
     },
 
     master: "./MAIN.respo",
 
     state: {
-        zone: "home",
+        axis: "ORT",
         master: false,
-        user: null
+        user: null,
+        freq: "12e"
     },
 
-    go(zone) {
-        if (zone === "main") {
+    go(axis) {
+        if (axis === "MAIN") {
             this.state.master = true;
             window.location.href = this.master;
             return;
         }
 
-        if (!this.zones[zone]) return;
-        this.state.zone = zone;
-        window.location.href = this.zones[zone];
+        if (!this.axes[axis]) return;
+        this.state.axis = axis;
+        window.location.href = this.axes[axis];
     },
 
     async loadUser() {
