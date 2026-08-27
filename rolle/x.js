@@ -1,15 +1,22 @@
-// x.js – Struktur (OI / IX / Eingang / Ursache)
+// x.js – COMIC Rollen-Struktur (p = Position, v = Verlauf, i = Impuls)
 export function X(p, v, i) {
-    const OI = p + v;          // Öffnen
-    const IX = v * i;          // Kreuzen
-    const eingang = p + v + i; // Eingang
-    const ursache = eingang;   // Ursache
+    const position = p;                 // ORT
+    const verlauf = v;                  // Verlauf / HOME → USER
+    const impuls = i;                   // Impuls / USE → OUT
+
+    const neutral = (p + v + i) / 3;    // Neutralpunkt der Struktur
+    const continuum = v * i;            // Continuum-Achse (Struktur)
+    const ursprung = p + continuum;     // Rollen-Ursprung (Eingang)
+
+    const ursache = ursprung;           // Ursache = Eingang
 
     return {
-        p, v, i,
-        OI,
-        IX,
-        eingang,
+        p: position,
+        v: verlauf,
+        i: impuls,
+        neutral,
+        continuum,
+        ursprung,
         ursache
     };
 }
