@@ -1,11 +1,23 @@
-// 3.js – Wirkung (Impuls)
+// WIRKUNG – COMIC Impuls-Achse
 export function WIRKUNG(station) {
-    const impact = Math.random();
+    const wert = station.wert;
+    const impuls = Math.random();          // Impuls-Achse
+
+    // 1. Neutralpunkt
+    const neutral = (wert + impuls) / 2;
+
+    // 2. Continuum-Achse
+    const continuum = wert * impuls;
+
+    // 3. Sprung / Wirkung
+    const sprung = continuum + neutral;
 
     return {
         ...station,
-        impact,
-        wirkung: station.wert * impact
+        impuls,
+        neutral,
+        continuum,
+        sprung,
+        wirkung: sprung
     };
 }
-
