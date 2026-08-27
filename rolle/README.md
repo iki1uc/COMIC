@@ -1,22 +1,18 @@
 # VEC.VirtualMarketplace · Multi Core
 
-Der Marketplace ist die Markt- und Börsenstation des Systems.
-Er verbindet mehrere Kerne:
+Der Marketplace ist die Markt- und Börsenstation des gesamten COMIC-Systems.
+Er arbeitet nicht lokal, sondern über alle Räume hinweg.
 
-1. DOOR-Core  
-   Durchgang, Eintritt, Ausgang.
+## Zweck
+VEC.VirtualMarketplace verbindet mehrere Kerne:
 
-2. DOO/IT-Core  
-   Kontrolle, Prüfung, Zugriff.
+- DOOR-Core → Durchgang / Übergang
+- DOO/IT-Core → Kontrolle / Prüfung
+- VECTOR-Core → Routing / Marktfluss
+- GENIE-Core → Bewertung / Einschätzung
+- API-Core → Durchlass / Übergabe
 
-3. VECTOR-Core  
-   Routing, Marktfluss, Richtung.
-
-4. GENIE-Core  
-   Bewertung, Einschätzung, Impuls.
-
-5. API-Core  
-   Durchlass, Übergabe, Verbindung.
+Diese Kerne erzeugen Marktbewegung im gesamten System.
 
 ## Funktionen
 - Übergänge erzeugen (tmp oder stabil)
@@ -25,13 +21,14 @@ Er verbindet mehrere Kerne:
 - Trades ausführen
 - Kontrolle durch DOO/IT
 - Durchlass über DOOR + API
+- Räume global bedienen (nicht nur /rolle)
 
 ## Dateien
-- API.raw – Rohdefinition
-- API.system.js – Funktionslogik
-- ID.html – Identität
-- index.html – Oberfläche
+- API.raw → Rohdefinition der Station
+- API.system.js → Funktionslogik (Multi-Core)
+- ID.html → Modulidentität
+- index.html → Interaktive Oberfläche
 
-Der Marketplace ist ein Multi-Core-Modul.
+Der Marketplace ist ein globales Multi-Core-Modul.
 Bewegung entsteht durch Verbindung.
 COMIC bleibt roh: keine Figuren, nur Impuls.
