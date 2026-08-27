@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>ID – AUTO RESPO</title>
+
+<style>
+  body { background:#111; color:#0f0; font-family:monospace; padding:20px; }
+  .box { border:1px solid #0f0; padding:20px; width:260px; }
+  .label { color:#6f6; }
+  .value { color:#0f0; }
+  .sand { font-size:40px; margin-top:10px; }
+</style>
+</head>
+
+<body>
+
+<h2>ID – AUTO RESPO</h2>
+
+<div class="box">
+  <div class="label">ID:</div>
+  <div class="value" id="idValue">–</div>
+
+  <div class="label">Axis:</div>
+  <div class="value" id="axisValue">–</div>
+
+  <div class="label">Orbit:</div>
+  <div class="value" id="orbitValue">–</div>
+
+  <div class="label">Pulse:</div>
+  <div class="value" id="pulseValue">–</div>
+
+  <div class="label">Gültigkeit:</div>
+  <div class="sand">⏳</div>
+</div>
+
+<script type="module">
+  import { AUTO_START } from "./AUTO_CORE.js";
+
+  // AUTO liefert laufend RESPO → wir fangen es ab
+  window.updateID = function(state){
+    document.getElementById("idValue").innerText = state.room;
+    document.getElementById("axisValue").innerText = state.respo.axis;
+    document.getElementById("orbitValue").innerText = state.respo.orbit;
+    document.getElementById("pulseValue").innerText = state.respo.pulse;
+  };
+
+  // AUTO starten
+  AUTO_START("ANKER");
+</script>
+
+</body>
+</html>
