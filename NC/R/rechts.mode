@@ -1,1 +1,46 @@
+/*
+  rechts.mode · NC Industrie
+  Rechts-Achse · Rechts-Impuls · Rechts-Tiefe
+  Atomisch · Transparent · 3D-kompatibel
+*/
+
+import { arg } from "../core/arg.js";
+
+export const RECHTS_MODE = {
+
+    // 1 · Rechts-Achse (Bewegung nach rechts)
+    axis() {
+        return "R-AXIS";
+    },
+
+    // 2 · Rechts-Impuls (horizontaler Schub)
+    impuls(value) {
+        return value * 1.0; // reine Rechtskraft
+    },
+
+    // 3 · Rechts-Tiefe (Schichtung der Rechtsbewegung)
+    tiefe(value) {
+        return Math.round(Math.sqrt(value) + Math.random() * 10);
+    },
+
+    // 4 · Atom + Unendlichkeits-Formel
+    mode(value) {
+
+        const atom = {
+            axis: this.axis(),
+            impuls: this.impuls(value),
+            tiefe: this.tiefe(value),
+            input: value,
+            time: arg.sync(),
+            info: "rechts.mode erzeugt Rechts-Achse + Rechts-Tiefe",
+            valid: true
+        };
+
+        return {
+            ...atom,
+            continue: true,
+            next: "RECHTS_MODE_next"
+        };
+    }
+};
 
