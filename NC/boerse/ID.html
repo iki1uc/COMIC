@@ -1,3 +1,28 @@
-function MARKET_ID(markt) {
-    return markt.preis**2 + markt.volumen**2 + markt.impuls**2;
+export function MARKET_ID(markt) {
+
+    // θ = Zeitwinkel
+    const theta = Date.now() / 1000; // Sekunden → Winkel
+
+    // a = Grundradius (Marktenergie)
+    const a = markt.preis + markt.volumen + markt.impuls;
+
+    // b = Volatilitätsfaktor
+    const b = markt.impuls * 0.01;
+
+    // Logarithmische Spirale: r = a * e^(bθ)
+    const r = a * Math.exp(b * theta);
+
+    // Spiral-Koordinaten
+    const x = r * Math.cos(theta);
+    const y = r * Math.sin(theta);
+
+    return {
+        axis: "MARKT_SPIRALE",
+        r,      // Radius
+        theta,  // Winkel
+        x,      // Spiral-X
+        y,      // Spiral-Y
+        info: "MARKT_ID erzeugt mathematische Auf-und-Ab-Spirale",
+        valid: true
+    };
 }
