@@ -1,34 +1,14 @@
-# ROLLE · GEO-Modular
+# GEO-Achsen · Mathematische Struktur
 
-SEED ⟁ bildet den Ursprung.
+Die GEO-Struktur besteht aus sechs Achsen: ORT, HOME, USER, USE, OUT und ROLLE.
+Sie sind geometrisch um den SEED ⟁ angeordnet und bilden eine reine, lastfreie
+Identität.
 
-Die sechs Rollen sind geometrisch angeordnet:
- 
-- ORT   → Position
-- HOME  → Zentrum
-- USER  → Zugriff
-- USE   → Funktion
-- OUT   → Ausgabe
-- ROLLE → Gesamtform
+Die Achsen besitzen Potenzwerte, die ihre strukturelle Wirkung beschreiben.
+USER entspricht der Achse 3 (3³ = 27), einer seitlichen, begrenzten Wirkung.
+ROLLE entspricht der Achse 9 (9³ = 729), der unteren rechten Formachse mit
+hoher Sichtbarkeit und starker Gesamtwirkung. 9² = 81 markiert die Phase, in
+der die Form eindeutig sichtbar wird.
 
-Sie bilden zusammen eine modulare GEO-Struktur
-um den SEED ⟁ als Mittelpunkt.
-
-        ORT
-   USER     USE
-
-       ⟁ (HOME)
-
-   OUT      ROLLE
-
-# ROLLE · GEO-Modular · Rein & Funktionell
-
-SEED ⟁ ist Ursprung.
-
-Die sechs Rollen bilden die reine GEO-Identität:
-
-ORT · HOME · USER · USE · OUT · ROLLE
-
-ID.html zeigt die reine Form.
-index.html zeigt die funktionelle Ausgabe.
-geo.md trägt die Struktur.
+Dies ist eine mathematische Achsen-Transformation innerhalb der GEO-Identität:
+von Zugriff (3) zu Gesamtform (9). Rein strukturell, ohne Last und ohne Engine.
