@@ -10,43 +10,49 @@
 </head>
 <body>
 
-<h1>N6 – Temporäre Symbiose</h1>
-
-<pre id="output">Lade Daten…</pre>
+<h1>N6 – Temporäre Symbiose Visualisierung</h1>
+<pre id="output">Lade temporäre Werte…</pre>
 
 <script type="module">
 import { SYMBIOSE } from './symbiose.js';
 import { N6_FLOW } from './n6.flow.js';
+import { LR_AXIS } from './lr.axis.js';
+import { WEG_LAUF } from './weg.lauf.js';
+import { SLIDE } from './slide.js';
+import { WETTE } from './wette.js';
+import { VIS_EXPORT } from './vis.js';
 
-// USER-DATEN LADEN
+// USER & USE laden
 import user from './user.html';
 import use from './use.html';
-
-// L/R Achse (RAWATOR ↔ ROLLE)
-import { LR_AXIS } from './lr.axis.js';
-
-// Weg/Lauf
-import { WEG_LAUF } from './weg.lauf.js';
 
 // Symbiose initialisieren
 SYMBIOSE.init(user, use);
 
-// Werte berechnen
+// L/R Achse
 const lr = LR_AXIS(user.rawator, use.rolle);
+
+// Weg/Lauf
 const weg = WEG_LAUF(user.impuls, use.richtung);
 
+// N6 Flow
 const n6 = N6_FLOW(user, use, lr, weg);
 
 // Ausgabe
 document.getElementById("output").innerText =
-`N6-Symbiose:
+`N6-Symbiose (temporär):
 WARE: ${user.preis}
 MARKT: ${use.volumen}
-BALANCE: ${lr.balance}
+BALANCE (L/R): ${lr.balance}
 WEG: ${weg}
 SLIDE: ${n6.n5}
 WETTE: ${n6.n6}
+GPU-WERT: ${user.gpu}
+INDUSTRY: ${use.industry}
 `;
+
+// Export an ROOT/index.html
+window.N6_EXPORT = VIS_EXPORT(n6);
 </script>
 
 </body>
