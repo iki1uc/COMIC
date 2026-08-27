@@ -1,18 +1,20 @@
-# ID / AUTO / RAW – Core Info
+# ID / AUTO / RAW – Core Layer
 
-**ID**  
-Eindeutiger Schlüssel für jeden Raum, jedes Modul und jede Datei.  
-Wird genutzt, um LOAD, SAVE, PIPE und AUTO eindeutig zuzuordnen.
+## ID – Identität
+Eindeutiger Schlüssel für jeden Weg, Raum, Layer und jedes Modul.  
+ID bestimmt *was existiert*.
 
-**AUTO**  
-Automatischer Ablauf: lädt, bewertet, speichert und springt zum nächsten Raum.  
-AUTO hält das System aktiv und synchron.
+## RAW – Rohdaten
+Unverarbeitete Zustände (ANKER.raw).  
+RAW bestimmt *was drin ist*.
 
-**RAW**  
-Unverarbeitete Daten (ANKER.raw).  
-Basis für Räume, Module und AUTO‑Zustände.
-
-Kurz:  
-ID bestimmt *was*,  
-RAW bestimmt *was drin ist*,  
+## AUTO – Ablauf
+Automatischer Durchlauf: lädt, bewertet, speichert, springt weiter.  
 AUTO bestimmt *was als Nächstes passiert*.
+
+## Zusammenhang
+ID → Objekt  
+RAW → Inhalt  
+AUTO → Bewegung
+
+Diese drei Kerne bilden den l‑Layer im WEG‑System.
