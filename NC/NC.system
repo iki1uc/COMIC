@@ -1,1 +1,82 @@
+/*
+  NC.system
+  Das zentrale, offene, transparente Kernmodul.
+  Keine Blackbox. Keine versteckten Operationen.
+  Alles intern. Alles tmp. Alles sichtbar.
+*/
+
+NC.system = {
+
+  // 1. Universelle Zeitachse (arg.sync)
+  time() {
+    return performance.now(); // rein intern
+  },
+
+  // 2. Atom-Formel (kleinste NC-Einheit)
+  atom(step, info) {
+    return {
+      step,
+      info,
+      time: this.time(),
+      valid: true
+    };
+  },
+
+  // 3. Unendlichkeits-Formel (kontinuierlicher Ablauf)
+  infinity(atom) {
+    return {
+      ...atom,
+      continue: true,
+      next: atom.step + "_next"
+    };
+  },
+
+  // 4. System-Status (offen & transparent)
+  status() {
+    return {
+      zone: OS.zone ?? "none",
+      pos:  OS.pos  ?? [0,0],
+      dir:  OS.dir  ?? "none",
+      val:  OS.val  ?? 0,
+      mov:  OS.mov  ?? "idle",
+      mem:  OS.memory ?? {}
+    };
+  },
+
+  // 5. Diagnose (intern, keine echte Hardware)
+  diagnose() {
+    const hw = OS.sysview.read();
+    const danger = OS.sysview.danger(hw);
+
+    return {
+      hw,
+      danger,
+      atom: this.atom("diagnose", "Gefahrstufe: " + danger)
+    };
+  },
+
+  // 6. Boot-Kette (sichtbar, prüfbar)
+  chain() {
+    return [
+      this.atom("disk",   "NC_engine.disk()"),
+      this.atom("video",  "NC_engine.video()"),
+      this.atom("verify", "WETTE.verify()"),
+      this.atom("read",   "DOO.readSector()"),
+      this.atom("reloc",  "SLIDE.relocate()"),
+      this.atom("action", "DOOR.action()"),
+      this.atom("handoff","OS.handoff()")
+    ].map(a => this.infinity(a));
+  },
+
+  // 7. Live-Transparenz (Open Source sichtbar)
+  display() {
+    const st = this.status();
+    const dg = this.diagnose();
+    const ch = this.chain();
+
+    console.log("NC.system STATUS:", st);
+    console.log("NC.system DIAGNOSE:", dg);
+    console.log("NC.system CHAIN:", ch);
+  }
+};
 
