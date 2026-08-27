@@ -1,13 +1,13 @@
 ORT:
-  SELF: ORT
-  USE: TMP:ORT.712
-  GEO: ORT
+  SELF: ORT            # ORT als Ursprung / Identität
+  USE: TMP:ORT.712     # TMP‑Phase → ORT‑Bindung (Industrie‑Schicht 712)
+  GEO: ORT             # Geometrischer ORT‑Punkt / Koordinate
 
-  U1: 27        // SYS.VEC (Dichte)
-  U2: MAIN      // Bewegungs-Engine
-  U3: △         // FIELD (C81)
-  U4: ◆         // Axiom-2 (Service)
-  U5: 81        // NC9×9.room (Raster)
-  U6: ◎         // Mind-Zentrum
-  U7: 3↺        // DEEPSPACENINE (Meta)
-  U8: COORD0    // Neutralpunkt
+  U1: 27               # SYS.VEC → Dichte (NC²‑Vektor)
+  U2: MAIN             # Bewegungs‑Engine / Hauptachse
+  U3: △                # FIELD (C81) → Raumfeld / Dreieck‑Achse
+  U4: ◆                # Axiom‑2 (Service‑Kern)
+  U5: 81               # NC9×9.room → Raster / Matrix
+  U6: ◎                # Mind‑Zentrum / Fokuspunkt
+  U7: 3↺               # DEEPSPACENINE → Meta‑Rückkehr / 3‑Rotation
+  U8: COORD0           # Neutralpunkt / Null‑Koordinate
