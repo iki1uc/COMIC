@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌀 UNIVERSAL‑MARKT · META‑HUB · GS6 · ANKER/API</title>
+
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  background: #0a0a0f;
+  color: #c8d0d0;
+  font-family: 'Consolas', monospace;
+  min-height: 100vh;
+  padding: 16px;
+  background: radial-gradient(ellipse at 50% 0%, #0f1a22, #000000);
+}
+.container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+.header {
+  text-align: center;
+  border-bottom: 1px solid rgba(255,215,0,0.1);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+.header h1 {
+  font-size: 28px;
+  background: linear-gradient(90deg, #ffd700, #ffaa00, #ff6600, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 6px;
+}
+.header .sub {
+  color: #3d5a70;
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+.header .sub .gs { color: #ffd700; }
+.header .sub .anker { color: #00ff88; }
+.header .sub .api { color: #00ccff; }
+
+/* GRID */
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+@media (max-width:900px){ .grid-3 { grid-template-columns:1fr 1fr; } }
+@media (max-width:500px){ .grid-3 { grid-template-columns:1fr; } }
+
+.card {
+  background: rgba(10,14,20,0.4);
+  border: 1px solid rgba(60,120,180,0.06);
+  border-radius: 14px;
+  padding: 14px;
+  backdrop-filter: blur(4px);
+}
+.card h3 {
+  font-size: 11px;
+  color: #3d5a70;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+.card .value {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: monospace;
+}
+.card .label { font-size: 8px; color: #445555; margin-top: 2px; }
+.card .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 10px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+.card .row .l { color: #445555; }
+.card .row .r { color: #b0cce8; }
+
+/* FARBEN */
+.gold .value { color: #ffd700; }
+.green .value { color: #00ff88; }
+.blue .value { color: #00ccff; }
+.purple .value { color: #ff66ff; }
+.red .value { color: #ff4444; }
+.orange .value { color: #ff8800; }
+
+/* CONTROLS */
+.controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px 0;
+}
+.controls button {
+  background: rgba(20,35,45,0.3);
+  color: #8ab8e6;
+  border: 1px solid rgba(100,200,255,0.04);
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-family: inherit;
+  font-size: 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.controls button:hover {
+  background: rgba(40,80,100,0.2);
+  color: #b8e2ff;
+}
+.controls button.primary { border-color: rgba(255,215,0,0.2); color: #ffd700; }
+.controls button.primary:hover { background: rgba(255,215,0,0.05); }
+.controls button.connect { border-color: rgba(0,255,136,0.2); color: #00ff88; }
+.controls button.connect:hover { background: rgba(0,255,136,0.05); }
+.controls button.api { border-color: rgba(0,204,255,0.2); color: #00ccff; }
+.controls button.api:hover { background: rgba(0,204,255,0.05); }
+.controls button.danger { border-color: rgba(255,68,68,0.2); color: #f44; }
+.controls button.danger:hover { background: rgba(255,68,68,0.05); }
+
+/* LOG */
+.log {
+  background: rgba(0,0,0,0.3);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 8px;
+  color: #3d5a70;
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid rgba(100,200,255,0.02);
+  margin-top: 10px;
+  font-family: monospace;
+  line-height: 1.6;
+}
+.log .ok { color: #00ff88; }
+.log .flow { color: #ffaa00; }
+.log .whirl { color: #ff66ff; }
+.log .trade { color: #ffd700; }
+.log .api { color: #00ccff; }
+.log .anker { color: #00ff88; }
+
+/* METRIKEN */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px,1fr));
+  gap: 6px;
+  margin: 8px 0;
+}
+.metric {
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 6px 10px;
+  text-align: center;
+}
+.metric .val { font-size: 16px; font-weight: bold; }
+.metric .lbl { font-size: 7px; color: #445555; text-transform: uppercase; letter-spacing: 1px; }
+
+.footer {
+  text-align: center;
+  margin-top: 12px;
+  color: #1a1a2a;
+  font-size: 7px;
+  letter-spacing: 2px;
+}
+.footer span { color: #ffd700; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+  <h1>🌀 UNIVERSAL‑MARKT · META‑HUB</h1>
+  <div class="sub"><span class="gs">GS6</span> · <span class="anker">ANKER</span> · <span class="api">API</span> · BÖRSE · WIRTSCHAFT · INDUSTRIE · HAFEN · ZOLL · wieimmer4u</div>
+</div>
+
+<!-- METRIKEN -->
+<div class="metrics">
+  <div class="metric gold"><div class="val" id="gs6Value">1.618</div><div class="lbl">GS6</div></div>
+  <div class="metric green"><div class="val" id="ankerValue">●</div><div class="lbl">ANKER</div></div>
+  <div class="metric blue"><div class="val" id="apiValue">●</div><div class="lbl">API</div></div>
+  <div class="metric purple"><div class="val" id="tradeCount">0</div><div class="lbl">TRADES</div></div>
+  <div class="metric orange"><div class="val" id="volumeValue">0</div><div class="lbl">VOLUMEN</div></div>
+  <div class="metric red"><div class="val" id="impulsValue">0</div><div class="lbl">IMPULS</div></div>
+</div>
+
+<!-- 3× CORE -->
+<div class="grid-3">
+  <!-- MARKT -->
+  <div class="card gold">
+    <h3>📊 MARKT · BÖRSE</h3>
+    <div class="value" id="marktPreis">0.00</div>
+    <div class="label">PREIS</div>
+    <div class="row"><span class="l">Volumen</span><span class="r" id="marktVolumen">0</span></div>
+    <div class="row"><span class="l">Impuls</span><span class="r" id="marktImpuls">0</span></div>
+    <div class="row"><span class="l">Wert (p×v×i)</span><span class="r" id="marktWert">0</span></div>
+    <div class="row"><span class="l">GS6‑Score</span><span class="r" id="marktGS6">0%</span></div>
+  </div>
+
+  <!-- INDUSTRIE -->
+  <div class="card orange">
+    <h3>🏭 INDUSTRIE · KNOTEN</h3>
+    <div class="value" id="industrieOutput">0</div>
+    <div class="label">PRODUKTION</div>
+    <div class="row"><span class="l">Knoten</span><span class="r" id="industrieKnoten">0</span></div>
+    <div class="row"><span class="l">Hafen‑Durchlauf</span><span class="r" id="industrieHafen">0</span></div>
+    <div class="row"><span class="l">Zoll‑Abgabe</span><span class="r" id="industrieZoll">0%</span></div>
+    <div class="row"><span class="l">GS6‑Effizienz</span><span class="r" id="industrieGS6">0%</span></div>
+  </div>
+
+  <!-- ECONOMY -->
+  <div class="card purple">
+    <h3>💰 ECONOMY · WIRTSCHAFT</h3>
+    <div class="value" id="economyGDP">0</div>
+    <div class="label">BIP</div>
+    <div class="row"><span class="l">Zirkulation</span><span class="r" id="economyZirk">0</span></div>
+    <div class="row"><span class="l">Liquidität</span><span class="r" id="economyLiquid">0</span></div>
+    <div class="row"><span class="l">GS6‑Balance</span><span class="r" id="economyGS6">0%</span></div>
+  </div>
+</div>
+
+<!-- ANKER + API (getrennt) -->
+<div class="grid-3">
+  <div class="card green">
+    <h3>⚓ ANKER · STABILISIERUNG</h3>
+    <div class="value" id="ankerState">● aktiv</div>
+    <div class="label">Zustand</div>
+    <div class="row"><span class="l">TMP‑Referenz</span><span class="r" id="ankerTMP">1.000</span></div>
+    <div class="row"><span class="l">RA</span><span class="r" id="ankerRA">1.000</span></div>
+    <div class="row"><span class="l">RE</span><span class="r" id="ankerRE">1.000</span></div>
+    <div class="row"><span class="l">GS6‑Verankerung</span><span class="r" id="ankerGS6">100%</span></div>
+  </div>
+
+  <div class="card blue">
+    <h3>🔌 API · DURCHLASS</h3>
+    <div class="value" id="apiState">● bereit</div>
+    <div class="label">Status</div>
+    <div class="row"><span class="l">Pass‑Through</span><span class="r" id="apiPass">aktiv</span></div>
+    <div class="row"><span class="l">Mapping</span><span class="r" id="apiMapping">—</span></div>
+    <div class="row"><span class="l">GS6‑Kompatibilität</span><span class="r" id="apiGS6">100%</span></div>
+  </div>
+
+  <div class="card" style="border-color:rgba(255,215,0,0.1);">
+    <h3>🌀 VECTOR · GENIE · ROUTING</h3>
+    <div class="value" style="color:#ffaa00;" id="vectorState">● aktiv</div>
+    <div class="label">Routing</div>
+    <div class="row"><span class="l">GENIE‑Score</span><span class="r" id="genieScore">0</span></div>
+    <div class="row"><span class="l">Trades</span><span class="r" id="vectorTrades">0</span></div>
+    <div class="row"><span class="l">GS6‑Routing</span><span class="r" id="vectorGS6">100%</span></div>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="primary" id="btnTrade">📊 TRADE</button>
+  <button class="connect" id="btnAnker">⚓ ANKER SETZEN</button>
+  <button class="api" id="btnAPI">🔌 API PASS</button>
+  <button id="btnGS6">🌀 GS6 SYNCH</button>
+  <button id="btnReset" class="danger">⟲ RESET</button>
+</div>
+
+<!-- LOG -->
+<div class="log" id="log">[🌀] UNIVERSAL‑MARKT · META‑HUB · bereit</div>
+
+<div class="footer">🌀 UNIVERSAL‑MARKT · GS6 · ANKER/API · <span>wieimmer4u</span></div>
+
+</div>
+
+<script>
+// ================================================================
+// UNIVERSAL‑MARKT · META‑HUB · GS6 · ANKER/API
+// ================================================================
+
+// ─── GS6 (Goldener Schnitt 6) ──────────────────────────────────
+const GS6 = 1.61803398875;
+
+// ─── STATE ──────────────────────────────────────────────────────
+const STATE = {
+  markt: { preis: 1.00, volumen: 100, impuls: 1.0, wert: 0 },
+  industrie: { output: 0, knoten: 5, hafen: 0, zoll: 0.05 },
+  economy: { gdp: 0, zirkulation: 0, liquiditaet: 0 },
+  anker: { aktiv: true, tmp: 1.000, ra: 1.000, re: 1.000 },
+  api: { aktiv: true, pass: true, mapping: 'aktiv' },
+  vector: { aktiv: true, genieScore: 0, trades: 0 },
+  trades: [],
+  volume: 0,
+  impuls: 0
+};
+
+// ─── LOG ────────────────────────────────────────────────────────
+function log(msg, type = 'ok') {
+  const el = document.getElementById('log');
+  const time = new Date().toLocaleTimeString();
+  const cls = ['ok','flow','whirl','trade','api','anker','warn'].includes(type) ? type : 'ok';
+  el.innerHTML += `<div>[${time}] <span class="${cls}">${msg}</span></div>`;
+  el.scrollTop = el.scrollHeight;
+  if (el.children.length > 40) el.removeChild(el.firstChild);
+}
+
+// ─── BERECHNUNGEN ──────────────────────────────────────────────
+function calculate() {
+  const m = STATE.markt;
+  m.wert = m.preis * m.volumen * m.impuls;
+
+  const i = STATE.industrie;
+  i.output = i.knoten * m.volumen * 0.1;
+  i.hafen = i.output * (1 + i.zoll);
+
+  const e = STATE.economy;
+  e.gdp = m.wert * i.output * 0.01;
+  e.zirkulation = e.gdp * 0.3;
+  e.liquiditaet = e.gdp * 0.15;
+
+  STATE.volume = m.volumen;
+  STATE.impuls = m.impuls;
+
+  // GS6 Scores
+  const gs6Markt = Math.min(100, (m.wert / (GS6 * 100)) * 100);
+  const gs6Industrie = Math.min(100, (i.output / (GS6 * 50)) * 100);
+  const gs6Economy = Math.min(100, (e.gdp / (GS6 * 10)) * 100);
+  const gs6Anker = STATE.anker.aktiv ? 100 : 0;
+  const gs6Api = STATE.api.aktiv ? 100 : 0;
+  const gs6Vector = STATE.vector.aktiv ? 100 : 0;
+
+  // UI Update
+  document.getElementById('gs6Value').textContent = GS6.toFixed(3);
+  document.getElementById('ankerValue').textContent = STATE.anker.aktiv ? '● aktiv' : '○ inaktiv';
+  document.getElementById('apiValue').textContent = STATE.api.aktiv ? '● aktiv' : '○ inaktiv';
+  document.getElementById('tradeCount').textContent = STATE.trades.length;
+  document.getElementById('volumeValue').textContent = Math.round(STATE.volume);
+  document.getElementById('impulsValue').textContent = STATE.impuls.toFixed(2);
+
+  // Markt
+  document.getElementById('marktPreis').textContent = m.preis.toFixed(2);
+  document.getElementById('marktVolumen').textContent = Math.round(m.volumen);
+  document.getElementById('marktImpuls').textContent = m.impuls.toFixed(2);
+  document.getElementById('marktWert').textContent = m.wert.toFixed(2);
+  document.getElementById('marktGS6').textContent = gs6Markt.toFixed(1) + '%';
+
+  // Industrie
+  document.getElementById('industrieOutput').textContent = i.output.toFixed(2);
+  document.getElementById('industrieKnoten').textContent = i.knoten;
+  document.getElementById('industrieHafen').textContent = i.hafen.toFixed(2);
+  document.getElementById('industrieZoll').textContent = (i.zoll * 100).toFixed(0) + '%';
+  document.getElementById('industrieGS6').textContent = gs6Industrie.toFixed(1) + '%';
+
+  // Economy
+  document.getElementById('economyGDP').textContent = e.gdp.toFixed(2);
+  document.getElementById('economyZirk').textContent = e.zirkulation.toFixed(2);
+  document.getElementById('economyLiquid').textContent = e.liquiditaet.toFixed(2);
+  document.getElementById('economyGS6').textContent = gs6Economy.toFixed(1) + '%';
+
+  // Anker
+  document.getElementById('ankerState').textContent = STATE.anker.aktiv ? '● aktiv' : '○ inaktiv';
+  document.getElementById('ankerTMP').textContent = STATE.anker.tmp.toFixed(3);
+  document.getElementById('ankerRA').textContent = STATE.anker.ra.toFixed(3);
+  document.getElementById('ankerRE').textContent = STATE.anker.re.toFixed(3);
+  document.getElementById('ankerGS6').textContent = gs6Anker + '%';
+
+  // API
+  document.getElementById('apiState').textContent = STATE.api.aktiv ? '● bereit' : '○ blockiert';
+  document.getElementById('apiPass').textContent = STATE.api.pass ? 'aktiv' : 'inaktiv';
+  document.getElementById('apiMapping').textContent = STATE.api.mapping;
+  document.getElementById('apiGS6').textContent = gs6Api + '%';
+
+  // Vector
+  document.getElementById('vectorState').textContent = STATE.vector.aktiv ? '● aktiv' : '○ inaktiv';
+  document.getElementById('genieScore').textContent = STATE.vector.genieScore;
+  document.getElementById('vectorTrades').textContent = STATE.vector.trades;
+  document.getElementById('vectorGS6').textContent = gs6Vector + '%';
+}
+
+// ─── TRADE ──────────────────────────────────────────────────────
+function doTrade() {
+  const preis = 0.5 + Math.random() * 3.0;
+  const volumen = 50 + Math.random() * 200;
+  const impuls = 0.5 + Math.random() * 2.0;
+
+  STATE.markt.preis = preis;
+  STATE.markt.volumen = volumen;
+  STATE.markt.impuls = impuls;
+
+  const genie = Math.round(20 + Math.random() * 80);
+  STATE.vector.genieScore = genie;
+  STATE.vector.trades++;
+
+  const trade = {
+    id: Date.now(),
+    preis: preis,
+    volumen: volumen,
+    impuls: impuls,
+    genie: genie,
+    wert: preis * volumen * impuls
+  };
+  STATE.trades.push(trade);
+
+  log(`📊 TRADE · Preis ${preis.toFixed(2)} · Vol ${Math.round(volumen)} · Imp ${impuls.toFixed(2)} · GENIE ${genie}`, 'trade');
+  calculate();
+}
+
+// ─── ANKER SETZEN ──────────────────────────────────────────────
+function setAnker() {
+  STATE.anker.aktiv = !STATE.anker.aktiv;
+  if (STATE.anker.aktiv) {
+    STATE.anker.tmp = 1.000 + (Math.random() - 0.5) * 0.1;
+    STATE.anker.ra = 1.000 + (Math.random() - 0.5) * 0.1;
+    STATE.anker.re = 1.000 + (Math.random() - 0.5) * 0.1;
+    log('⚓ ANKER gesetzt · stabilisiert', 'anker');
+  } else {
+    log('⚓ ANKER gelöst · instabil', 'warn');
+  }
+  calculate();
+}
+
+// ─── API PASS ──────────────────────────────────────────────────
+function doAPI() {
+  STATE.api.aktiv = !STATE.api.aktiv;
+  STATE.api.pass = STATE.api.aktiv;
+  STATE.api.mapping = STATE.api.aktiv ? 'aktiv' : 'blockiert';
+  log(STATE.api.aktiv ? '🔌 API PASS aktiviert · Durchlass frei' : '🔌 API PASS deaktiviert · blockiert', 'api');
+  calculate();
+}
+
+// ─── GS6 SYNCH ──────────────────────────────────────────────────
+function doGS6() {
+  const factor = GS6;
+  STATE.markt.preis = STATE.markt.preis * factor / 2;
+  STATE.markt.volumen = Math.round(STATE.markt.volumen * factor / 2);
+  STATE.markt.impuls = STATE.markt.impuls * factor / 2;
+  STATE.anker.tmp = 1.000;
+  STATE.anker.ra = 1.000;
+  STATE.anker.re = 1.000;
+  log('🌀 GS6 SYNCH · Alle Werte golden ausgerichtet', 'flow');
+  calculate();
+}
+
+// ─── RESET ──────────────────────────────────────────────────────
+function doReset() {
+  STATE.markt = { preis: 1.00, volumen: 100, impuls: 1.0, wert: 0 };
+  STATE.industrie = { output: 0, knoten: 5, hafen: 0, zoll: 0.05 };
+  STATE.economy = { gdp: 0, zirkulation: 0, liquiditaet: 0 };
+  STATE.anker = { aktiv: true, tmp: 1.000, ra: 1.000, re: 1.000 };
+  STATE.api = { aktiv: true, pass: true, mapping: 'aktiv' };
+  STATE.vector = { aktiv: true, genieScore: 0, trades: 0 };
+  STATE.trades = [];
+  STATE.volume = 0;
+  STATE.impuls = 0;
+  log('⟲ RESET · Markt zurückgesetzt', 'warn');
+  calculate();
+}
+
+// ─── TASTATUR ──────────────────────────────────────────────────
+document.addEventListener('keydown', (e) => {
+  if (e.key === 't' || e.key === 'T') doTrade();
+  if (e.key === 'a' || e.key === 'A') setAnker();
+  if (e.key === 'p' || e.key === 'P') doAPI();
+  if (e.key === 'g' || e.key === 'G') doGS6();
+  if (e.key === 'x' || e.key === 'X') doReset();
+});
+
+// ─── BUTTONS ────────────────────────────────────────────────────
+document.getElementById('btnTrade').addEventListener('click', doTrade);
+document.getElementById('btnAnker').addEventListener('click', setAnker);
+document.getElementById('btnAPI').addEventListener('click', doAPI);
+document.getElementById('btnGS6').addEventListener('click', doGS6);
+document.getElementById('btnReset').addEventListener('click', doReset);
+
+// ─── INIT ──────────────────────────────────────────────────────
+calculate();
+log('🌀 UNIVERSAL‑MARKT · META‑HUB · geladen', 'ok');
+log('⌨️  t=TRADE  a=ANKER  p=API  g=GS6  x=RESET', 'flow');
+log('📊 GS6 = 1.618 · Anker + API getrennt · universell', 'ok');
+</script>
+
+</body>
+</html>
