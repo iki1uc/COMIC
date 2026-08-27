@@ -1,13 +1,13 @@
-import {
-  DOOR,
-  DOO,
-  RESPO,
-  OS,
-  NC_engine,
-  _243,
-  SCORE,
-  WETTE,
-  SLIDE
-} from "./boot.js";
+export const DOOR = {};
+export const DOO = {};
+export const RESPO = {};
+export const OS = {};
+export const NC_engine = {};
+export const _243 = {};
+export const SCORE = {};
+export const WETTE = {};
+export const SLIDE = {};
 
-boot();
+export function boot() {
+  console.log("BOOT START");
+}
