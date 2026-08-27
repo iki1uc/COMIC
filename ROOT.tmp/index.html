@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ROOT.tmp – N6 Visualisierung</title>
+    <style>
+        body { background:#000; color:#0f0; font-family:monospace; padding:20px; }
+        pre { background:#111; padding:12px; border:1px solid #333; }
+        .n6 { margin-top:20px; padding:10px; border:1px solid #0f0; }
+    </style>
+</head>
+<body>
+
+<h1>N6 – Temporäre Symbiose</h1>
+
+<pre id="output">Lade Daten…</pre>
+
+<script type="module">
+import { SYMBIOSE } from './symbiose.js';
+import { N6_FLOW } from './n6.flow.js';
+
+// USER-DATEN LADEN
+import user from './user.html';
+import use from './use.html';
+
+// L/R Achse (RAWATOR ↔ ROLLE)
+import { LR_AXIS } from './lr.axis.js';
+
+// Weg/Lauf
+import { WEG_LAUF } from './weg.lauf.js';
+
+// Symbiose initialisieren
+SYMBIOSE.init(user, use);
+
+// Werte berechnen
+const lr = LR_AXIS(user.rawator, use.rolle);
+const weg = WEG_LAUF(user.impuls, use.richtung);
+
+const n6 = N6_FLOW(user, use, lr, weg);
+
+// Ausgabe
+document.getElementById("output").innerText =
+`N6-Symbiose:
+WARE: ${user.preis}
+MARKT: ${use.volumen}
+BALANCE: ${lr.balance}
+WEG: ${weg}
+SLIDE: ${n6.n5}
+WETTE: ${n6.n6}
+`;
+</script>
+
+</body>
+</html>
