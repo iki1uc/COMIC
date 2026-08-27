@@ -1,0 +1,34 @@
+// ============================================================
+// L.MODE · Linke Meta-Achse · USER → MYSTERY
+// ============================================================
+
+export const L_MODE = {
+    name: "L.MODE",
+    axis: 3,            // USER-Achse
+    target: 729,        // MYSTERY-Achse (9³)
+    type: "meta-link",  // Verbindung zwischen Matrix und Kuppel
+
+    // Übergang USER → MYSTERY
+    lift(value = 1) {
+        return {
+            from: this.axis,
+            to: this.target,
+            factor: value,
+            mode: "lift",
+            timestamp: Date.now()
+        };
+    },
+
+    // reine Struktur
+    identity() {
+        return {
+            axis: this.axis,
+            target: this.target,
+            type: this.type,
+            description:
+                "L.MODE verbindet die linke GEO-Achse (USER) mit der Meta-Achse MYSTERY (729).",
+            timestamp: Date.now()
+        };
+    }
+};
+
