@@ -1,37 +1,24 @@
-// vector.tiefe.js
-// Entschluss-Axiom – Tiefen-Engine
-// PICASSO integriert · iki1uc · industry-6.0
+import { CONSEQUENCE_BIO } from './consequence.bio.js';
 
-import { PICASSO } from './PICASSO.js';
+export function VECTOR_TIEFE_BIO(qi, iqq, t = performance.now() * 0.001) {
 
-// VECTOR.TRIEB = Impuls-Axiom (Höhe)
-export function VECTOR_TRIEB(qi, iqq) {
-    const base = qi - iqq;
-    const p = PICASSO.run(base);
-    return { base, picasso: p };
-}
+    const tiefe = VECTOR_TIEFE(qi, iqq);
 
-// VECTOR.ENGINE = Kraft-Axiom (Breite)
-export function VECTOR_ENGINE(qi, iqq) {
-    const base = (qi * 0.6) + (iqq * 0.4);
-    const p = PICASSO.run(base);
-    return { base, picasso: p };
-}
-
-// VECTOR.TIEFE = Entschluss-Axiom (Tiefe)
-export function VECTOR_TIEFE(qi, iqq) {
-    const trieb = VECTOR_TRIEB(qi, iqq);
-    const engine = VECTOR_ENGINE(qi, iqq);
-
-    // Tiefe = Entscheidung zwischen Höhe und Breite
-    const tiefe = (trieb.base + engine.base) / 2;
+    const bio = CONSEQUENCE_BIO(tiefe.trieb, tiefe.engine, t);
 
     return {
-        typ: "vector.tiefe",
-        trieb: trieb.base,
-        engine: engine.base,
-        tiefe,
-        ausgang: tiefe,
-        picasso: PICASSO.run(tiefe)
+        typ: "vector.tiefe.bio",
+        trieb: tiefe.trieb,
+        engine: tiefe.engine,
+        tiefe: tiefe.tiefe,
+
+        growth: bio.growth,
+        pulse: bio.pulse,
+        mutate: bio.mutate,
+        branch: bio.branch,
+
+        hologram: bio.hologram,
+
+        picasso: PICASSO.run(bio.growth)
     };
 }
