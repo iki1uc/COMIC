@@ -1,1 +1,74 @@
+/*
+  bewegung.mode
+  Marktbewegung · Atomisch · Transparent · NC-kompatibel
+
+  Ziel:
+  - Marktbewegungen definieren
+  - Impulse sichtbar machen
+  - Bewegungsrichtung aus Impact ableiten
+  - Open Door · Keine Blackbox
+*/
+
+import { arg } from "../core/arg.js";
+
+export const BEWEGUNG_MODE = {
+
+    // 1 · Atom-Formel (kleinste Bewegungseinheit)
+    atom(step, info) {
+        return {
+            axis: "BEWEGUNG",
+            step,
+            info,
+            time: arg.sync(),
+            valid: true
+        };
+    },
+
+    // 2 · Unendlichkeits-Formel (jede Bewegung erzeugt die nächste)
+    infinity(atom) {
+        return {
+            ...atom,
+            continue: true,
+            next: atom.step + "_next"
+        };
+    },
+
+    // 3 · Bewegungsrichtung aus Marktimpuls
+    richtung(impuls) {
+        let dir = "neutral";
+
+        if (impuls > 0.66) dir = "hoch";
+        else if (impuls < 0.33) dir = "runter";
+        else dir = "seitlich";
+
+        return this.infinity(
+            this.atom("richtung", `Bewegung: ${dir} (Impuls: ${impuls})`)
+        );
+    },
+
+    // 4 · Bewegungsstärke
+    staerke(impuls) {
+        const power = Math.round(impuls * 100);
+
+        return this.infinity(
+            this.atom("staerke", `Stärke: ${power}`)
+        );
+    },
+
+    // 5 · Vollständige Marktbewegung
+    bewegung(impuls) {
+        const r = this.richtung(impuls);
+        const s = this.staerke(impuls);
+
+        return {
+            axis: "BEWEGUNG",
+            richtung: r,
+            staerke: s,
+            time: arg.sync(),
+            info: "Marktbewegung vollständig berechnet",
+            valid: true,
+            next: "BEWEGUNG_next"
+        };
+    }
+};
 
