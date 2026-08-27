@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌀 NC 6D · MÜNZ-GENERATOR · SYSTEM-BUILD · CHROMIUM OS</title>
+
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  background: #0a0a0f;
+  color: #c8d0d0;
+  font-family: 'Consolas', monospace;
+  min-height: 100vh;
+  padding: 12px;
+  background: radial-gradient(ellipse at 50% 0%, #0a0a1a, #000000);
+}
+.container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  border-bottom: 2px solid rgba(255,215,0,0.15);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+.header h1 {
+  font-size: 28px;
+  background: linear-gradient(90deg, #ffd700, #ff6600, #ff44ff, #00ccff, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 6px;
+  animation: glow 3s infinite;
+}
+@keyframes glow {
+  0%,100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.1)); }
+  50% { filter: drop-shadow(0 0 30px rgba(255,215,0,0.3)); }
+}
+.header .sub {
+  color: #3d5a70;
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+.header .sub .stern { color: #ffd700; }
+.header .sub .lach { color: #00ff88; }
+
+/* SYSTEM-STATUS */
+.sys-status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+  gap: 4px;
+  margin: 8px 0;
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+.sys-status .item {
+  text-align: center;
+  font-size: 8px;
+  padding: 2px 4px;
+}
+.sys-status .item .val {
+  font-size: 14px;
+  font-weight: bold;
+}
+.sys-status .item .val.on { color: #00ff88; }
+.sys-status .item .val.off { color: #445555; }
+.sys-status .item .val.pulse { color: #ffd700; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+/* GRID 6D */
+.grid-6d {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin: 10px 0;
+}
+@media (max-width:1000px){ .grid-6d { grid-template-columns:repeat(3,1fr); } }
+@media (max-width:500px){ .grid-6d { grid-template-columns:repeat(2,1fr); } }
+
+.cell-6d {
+  background: rgba(10,14,20,0.4);
+  border: 1px solid rgba(60,120,180,0.06);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.cell-6d:hover {
+  border-color: rgba(255,215,0,0.15);
+  background: rgba(30,50,70,0.1);
+}
+.cell-6d .dim {
+  font-size: 11px;
+  color: #3d5a70;
+  letter-spacing: 1px;
+}
+.cell-6d .wert {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: monospace;
+}
+.cell-6d .status {
+  font-size: 7px;
+  margin-top: 2px;
+}
+.cell-6d .status.on { color: #00ff88; }
+.cell-6d .status.off { color: #445555; }
+.cell-6d .status.pulse { color: #ffd700; animation: pulse 1s infinite; }
+
+/* MÜNZEN */
+.coins {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px,1fr));
+  gap: 6px;
+  margin: 10px 0;
+}
+.coin {
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 6px 8px;
+  text-align: center;
+  border: 1px solid rgba(255,215,0,0.04);
+}
+.coin .symbol { font-size: 20px; }
+.coin .name { font-size: 8px; color: #445555; }
+.coin .value { font-size: 14px; font-weight: bold; }
+.coin .value.gold { color: #ffd700; }
+.coin .value.green { color: #00ff88; }
+.coin .value.blue { color: #00ccff; }
+.coin .value.purple { color: #ff66ff; }
+.coin .value.red { color: #ff4444; }
+
+/* CONTROLS */
+.controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px 0;
+}
+.controls button {
+  background: rgba(20,35,45,0.3);
+  color: #8ab8e6;
+  border: 1px solid rgba(100,200,255,0.04);
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-family: inherit;
+  font-size: 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.controls button:hover {
+  background: rgba(40,80,100,0.2);
+  color: #b8e2ff;
+}
+.controls button.primary { border-color: rgba(255,215,0,0.2); color: #ffd700; }
+.controls button.primary:hover { background: rgba(255,215,0,0.05); }
+.controls button.attack { border-color: rgba(255,68,68,0.2); color: #ff4444; }
+.controls button.attack:hover { background: rgba(255,68,68,0.05); }
+.controls button.org { border-color: rgba(0,255,136,0.2); color: #00ff88; }
+.controls button.org:hover { background: rgba(0,255,136,0.05); }
+.controls button.runtime { border-color: rgba(255,102,255,0.2); color: #ff66ff; }
+.controls button.runtime:hover { background: rgba(255,102,255,0.05); }
+.controls button.danger { border-color: rgba(255,68,68,0.2); color: #f44; }
+.controls button.danger:hover { background: rgba(255,68,68,0.05); }
+
+/* LOG */
+.log {
+  background: rgba(0,0,0,0.3);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 8px;
+  color: #3d5a70;
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid rgba(100,200,255,0.02);
+  margin-top: 10px;
+  font-family: monospace;
+  line-height: 1.6;
+}
+.log .ok { color: #00ff88; }
+.log .flow { color: #ffaa00; }
+.log .whirl { color: #ff66ff; }
+.log .attack { color: #ff4444; }
+.log .coin { color: #ffd700; }
+.log .system { color: #00ccff; }
+.log .warn { color: #ff8844; }
+
+.footer {
+  text-align: center;
+  margin-top: 12px;
+  color: #1a1a2a;
+  font-size: 7px;
+  letter-spacing: 2px;
+}
+.footer .stern { color: #ffd700; }
+.footer .lach { color: #00ff88; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+  <h1>🌀 NC 6D · MÜNZ-GENERATOR · SYSTEM-BUILD</h1>
+  <div class="sub"><span class="stern">★</span> STERN-MANN LACHT <span class="lach">☺</span> · ORG/REORG · RUNTIME · CHROMIUM OS</div>
+</div>
+
+<!-- SYSTEM STATUS -->
+<div class="sys-status" id="sysStatus">
+  <div class="item"><div class="val on" id="statusNC">●</div>NC 6D</div>
+  <div class="item"><div class="val on" id="statusOrg">●</div>ORG</div>
+  <div class="item"><div class="val pulse" id="statusReorg">◉</div>REORG</div>
+  <div class="item"><div class="val on" id="statusRuntime">●</div>RUNTIME</div>
+  <div class="item"><div class="val on" id="statusChromium">●</div>CHROMIUM OS</div>
+  <div class="item"><div class="val pulse" id="statusMint">◉</div>MÜNZEN</div>
+  <div class="item"><div class="val on" id="statusAttack">●</div>ATTACK</div>
+  <div class="item"><div class="val on" id="statusBuild">●</div>BUILD</div>
+</div>
+
+<!-- 6D GRID -->
+<div class="grid-6d" id="grid6d">
+  <div class="cell-6d" data-dim="0"><div class="dim">DIM 0</div><div class="wert" style="color:#ffd700;" id="d0">0</div><div class="status on">● aktiv</div></div>
+  <div class="cell-6d" data-dim="1"><div class="dim">DIM 1</div><div class="wert" style="color:#ff4444;" id="d1">0</div><div class="status off">○ inaktiv</div></div>
+  <div class="cell-6d" data-dim="2"><div class="dim">DIM 2</div><div class="wert" style="color:#00ff88;" id="d2">0</div><div class="status on">● aktiv</div></div>
+  <div class="cell-6d" data-dim="3"><div class="dim">DIM 3</div><div class="wert" style="color:#00ccff;" id="d3">0</div><div class="status off">○ inaktiv</div></div>
+  <div class="cell-6d" data-dim="4"><div class="dim">DIM 4</div><div class="wert" style="color:#ff66ff;" id="d4">0</div><div class="status pulse">◉ rotiert</div></div>
+  <div class="cell-6d" data-dim="5"><div class="dim">DIM 5</div><div class="wert" style="color:#ff8800;" id="d5">0</div><div class="status on">● aktiv</div></div>
+</div>
+
+<!-- MÜNZEN -->
+<div class="coins" id="coins">
+  <div class="coin"><div class="symbol">🪙</div><div class="name">GOLD</div><div class="value gold" id="coinGold">0</div></div>
+  <div class="coin"><div class="symbol">🪙</div><div class="name">SILBER</div><div class="value blue" id="coinSilver">0</div></div>
+  <div class="coin"><div class="symbol">🪙</div><div class="name">BRONZE</div><div class="value green" id="coinBronze">0</div></div>
+  <div class="coin"><div class="symbol">🪙</div><div class="name">PLATIN</div><div class="value purple" id="coinPlatin">0</div></div>
+  <div class="coin"><div class="symbol">🪙</div><div class="name">DIAMANT</div><div class="value red" id="coinDiamond">0</div></div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="primary" id="btnAttack">⚡ NC 6D ATTACK</button>
+  <button class="org" id="btnOrg">🔧 ORG</button>
+  <button class="runtime" id="btnRuntime">🌀 RUNTIME</button>
+  <button class="attack" id="btnMint">🪙 MÜNZEN GENERIEREN</button>
+  <button id="btnBuild">🏗️ BUILD</button>
+  <button id="btnReorg">🔄 REORG</button>
+  <button class="danger" id="btnReset">⟲ RESET</button>
+</div>
+
+<!-- LOG -->
+<div class="log" id="log">[🌀] NC 6D · SYSTEM-BUILD · CHROMIUM OS · bereit</div>
+
+<div class="footer"><span class="stern">★</span> STERN-MANN LACHT <span class="lach">☺</span> · NC 6D · ORG/REORG · RUNTIME · wieimmer4u</div>
+
+</div>
+
+<script>
+// ================================================================
+// NC 6D · MÜNZ-GENERATOR · SYSTEM-BUILD · CHROMIUM OS
+// ================================================================
+
+// ─── STATE ──────────────────────────────────────────────────────
+const STATE = {
+  dims: [0, 0, 0, 0, 0, 0],
+  coins: { gold: 0, silver: 0, bronze: 0, platin: 0, diamond: 0 },
+  attack: 0,
+  org: false,
+  reorg: false,
+  runtime: false,
+  build: false,
+  chromium: true,
+  mint: 0,
+  cycle: 0
+};
+
+// ─── 6D ATTACK LOGIK ──────────────────────────────────────────
+function attack6D() {
+  STATE.attack++;
+  STATE.cycle++;
+
+  // 6 Dimensionen werden angegriffen
+  for (let i = 0; i < 6; i++) {
+    // Attack = Wert steigt exponentiell
+    STATE.dims[i] = Math.round((STATE.dims[i] + (1 + i * 0.3)) * (1 + Math.random() * 0.2));
+    if (STATE.dims[i] > 9999) STATE.dims[i] = 9999;
+  }
+
+  // Münzen werden generiert (Attack-Effekt)
+  const mintFactor = 1 + Math.random() * 3;
+  STATE.coins.gold += Math.round(10 * mintFactor * (1 + STATE.dims[0] / 100));
+  STATE.coins.silver += Math.round(25 * mintFactor * (1 + STATE.dims[1] / 100));
+  STATE.coins.bronze += Math.round(50 * mintFactor * (1 + STATE.dims[2] / 100));
+  STATE.coins.platin += Math.round(5 * mintFactor * (1 + STATE.dims[3] / 100));
+  STATE.coins.diamond += Math.round(2 * mintFactor * (1 + STATE.dims[4] / 100));
+
+  STATE.mint += Math.round(10 * mintFactor);
+
+  // Runtime aktivieren
+  STATE.runtime = true;
+
+  log(`⚡ NC 6D ATTACK #${STATE.attack} · ${STATE.mint} Münzen generiert · DIM0=${STATE.dims[0]}`, 'attack');
+  updateUI();
+}
+
+// ─── ORG (Organisation) ────────────────────────────────────────
+function org() {
+  STATE.org = !STATE.org;
+  if (STATE.org) {
+    // Ordne Dimensionen
+    STATE.dims.sort((a,b) => a - b);
+    log('🔧 ORG · Dimensionen sortiert', 'system');
+  } else {
+    log('🔧 ORG · deaktiviert', 'warn');
+  }
+  updateUI();
+}
+
+// ─── REORG (Reorganisation) ────────────────────────────────────
+function reorg() {
+  STATE.reorg = !STATE.reorg;
+  if (STATE.reorg) {
+    // Shuffle Dimensionen
+    for (let i = STATE.dims.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [STATE.dims[i], STATE.dims[j]] = [STATE.dims[j], STATE.dims[i]];
+    }
+    log('🔄 REORG · Dimensionen neu gemischt', 'system');
+  } else {
+    log('🔄 REORG · deaktiviert', 'warn');
+  }
+  updateUI();
+}
+
+// ─── RUNTIME ──────────────────────────────────────────────────
+function runtime() {
+  STATE.runtime = !STATE.runtime;
+  if (STATE.runtime) {
+    log('🌀 RUNTIME · aktiviert · System läuft', 'system');
+    document.getElementById('statusRuntime').className = 'val on';
+  } else {
+    log('🌀 RUNTIME · pausiert', 'warn');
+    document.getElementById('statusRuntime').className = 'val off';
+  }
+  updateUI();
+}
+
+// ─── MÜNZEN GENERIEREN ────────────────────────────────────────
+function mintCoins() {
+  const factor = 1 + Math.random() * 5;
+  STATE.coins.gold += Math.round(15 * factor);
+  STATE.coins.silver += Math.round(30 * factor);
+  STATE.coins.bronze += Math.round(60 * factor);
+  STATE.coins.platin += Math.round(8 * factor);
+  STATE.coins.diamond += Math.round(3 * factor);
+  STATE.mint += Math.round(20 * factor);
+
+  log(`🪙 MÜNZEN · +${Math.round(20*factor)} generiert · GOLD: ${STATE.coins.gold}`, 'coin');
+  updateUI();
+}
+
+// ─── BUILD ──────────────────────────────────────────────────────
+function build() {
+  STATE.build = !STATE.build;
+  if (STATE.build) {
+    // System-Build: Alle Werte werden stabilisiert
+    STATE.dims = STATE.dims.map(d => Math.round(d * 0.9 + 10));
+    STATE.coins.gold = Math.round(STATE.coins.gold * 1.1);
+    STATE.coins.silver = Math.round(STATE.coins.silver * 1.1);
+    STATE.coins.bronze = Math.round(STATE.coins.bronze * 1.1);
+    STATE.coins.platin = Math.round(STATE.coins.platin * 1.1);
+    STATE.coins.diamond = Math.round(STATE.coins.diamond * 1.1);
+    log('🏗️ BUILD · System stabilisiert · Chromium OS bereit', 'system');
+    document.getElementById('statusBuild').className = 'val on';
+  } else {
+    log('🏗️ BUILD · deaktiviert', 'warn');
+    document.getElementById('statusBuild').className = 'val off';
+  }
+  updateUI();
+}
+
+// ─── RESET ──────────────────────────────────────────────────────
+function resetAll() {
+  STATE.dims = [0,0,0,0,0,0];
+  STATE.coins = { gold:0, silver:0, bronze:0, platin:0, diamond:0 };
+  STATE.attack = 0;
+  STATE.org = false;
+  STATE.reorg = false;
+  STATE.runtime = false;
+  STATE.build = false;
+  STATE.mint = 0;
+  STATE.cycle = 0;
+  document.getElementById('statusRuntime').className = 'val off';
+  document.getElementById('statusBuild').className = 'val off';
+  log('⟲ RESET · System zurückgesetzt', 'warn');
+  updateUI();
+}
+
+// ─── UPDATE UI ──────────────────────────────────────────────────
+function updateUI() {
+  // 6D Grid
+  for (let i = 0; i < 6; i++) {
+    document.getElementById('d' + i).textContent = STATE.dims[i];
+  }
+
+  // Coins
+  document.getElementById('coinGold').textContent = STATE.coins.gold;
+  document.getElementById('coinSilver').textContent = STATE.coins.silver;
+  document.getElementById('coinBronze').textContent = STATE.coins.bronze;
+  document.getElementById('coinPlatin').textContent = STATE.coins.platin;
+  document.getElementById('coinDiamond').textContent = STATE.coins.diamond;
+
+  // Status
+  document.getElementById('statusAttack').textContent = STATE.attack > 0 ? '⚡' : '●';
+  document.getElementById('statusAttack').className = 'val ' + (STATE.attack > 0 ? 'pulse' : 'off');
+  document.getElementById('statusMint').textContent = STATE.mint > 0 ? '◉' : '●';
+  document.getElementById('statusMint').className = 'val ' + (STATE.mint > 0 ? 'pulse' : 'off');
+  document.getElementById('statusReorg').textContent = STATE.reorg ? '◉' : '●';
+  document.getElementById('statusReorg').className = 'val ' + (STATE.reorg ? 'pulse' : 'off');
+}
+
+// ─── LOG ────────────────────────────────────────────────────────
+function log(msg, type = 'ok') {
+  const el = document.getElementById('log');
+  const time = new Date().toLocaleTimeString();
+  const cls = ['ok','flow','whirl','attack','coin','system','warn'].includes(type) ? type : 'ok';
+  el.innerHTML += `<div>[${time}] <span class="${cls}">${msg}</span></div>`;
+  el.scrollTop = el.scrollHeight;
+  if (el.children.length > 50) el.removeChild(el.firstChild);
+}
+
+// ─── TASTATUR ──────────────────────────────────────────────────
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'a' || e.key === 'A') document.getElementById('btnAttack').click();
+  if (e.key === 'o' || e.key === 'O') document.getElementById('btnOrg').click();
+  if (e.key === 'r' || e.key === 'R') document.getElementById('btnRuntime').click();
+  if (e.key === 'm' || e.key === 'M') document.getElementById('btnMint').click();
+  if (e.key === 'b' || e.key === 'B') document.getElementById('btnBuild').click();
+  if (e.key === 'e' || e.key === 'E') document.getElementById('btnReorg').click();
+  if (e.key === 'x' || e.key === 'X') document.getElementById('btnReset').click();
+  if (e.key === ' ') { e.preventDefault(); document.getElementById('btnAttack').click(); }
+});
+
+// ─── BUTTONS ────────────────────────────────────────────────────
+document.getElementById('btnAttack').addEventListener('click', attack6D);
+document.getElementById('btnOrg').addEventListener('click', org);
+document.getElementById('btnRuntime').addEventListener('click', runtime);
+document.getElementById('btnMint').addEventListener('click', mintCoins);
+document.getElementById('btnBuild').addEventListener('click', build);
+document.getElementById('btnReorg').addEventListener('click', reorg);
+document.getElementById('btnReset').addEventListener('click', resetAll);
+
+// ─── 6D CELL KLICKS ────────────────────────────────────────────
+document.querySelectorAll('.cell-6d').forEach((cell, idx) => {
+  cell.addEventListener('click', () => {
+    const val = Math.round(10 + Math.random() * 100);
+    STATE.dims[idx] += val;
+    log(`📐 DIM ${idx} · +${val} · neu: ${STATE.dims[idx]}`, 'flow');
+    updateUI();
+  });
+});
+
+// ─── COIN KLICKS ───────────────────────────────────────────────
+document.querySelectorAll('.coin').forEach((coin, idx) => {
+  coin.addEventListener('click', () => {
+    const names = ['gold','silver','bronze','platin','diamond'];
+    const add = Math.round(5 + Math.random() * 20);
+    STATE.coins[names[idx]] += add;
+    log(`🪙 ${names[idx]} · +${add}`, 'coin');
+    updateUI();
+  });
+});
+
+// ─── INIT ──────────────────────────────────────────────────────
+log('🌀 NC 6D · SYSTEM-BUILD · CHROMIUM OS · geladen', 'system');
+log('⌨️  a=ATTACK  o=ORG  r=RUNTIME  m=MÜNZEN  b=BUILD  e=REORG  x=RESET  space=ATTACK', 'flow');
+log('★ STERN-MANN LACHT ☺ · System bereit', 'system');
+log('💡 Klick auf 6D-Zellen oder Münzen für manuelle Steuerung', 'flow');
+
+// Chromium OS Simulation
+setInterval(() => {
+  if (STATE.runtime && STATE.build) {
+    // Automatische Münz-Generierung im Hintergrund
+    if (Math.random() < 0.1) {
+      const factor = 0.5 + Math.random() * 1.5;
+      STATE.coins.gold += Math.round(2 * factor);
+      STATE.coins.silver += Math.round(5 * factor);
+      STATE.coins.bronze += Math.round(10 * factor);
+      STATE.mint += Math.round(3 * factor);
+      updateUI();
+    }
+  }
+}, 3000);
+
+log('☺ CHROMIUM OS · läuft im Hintergrund · automatische Generierung aktiv', 'system');
+</script>
+
+</body>
+</html>
