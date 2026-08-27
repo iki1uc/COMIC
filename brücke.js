@@ -1,31 +1,47 @@
-// brücke.js
+// brücke.js – organischer Continuum-Zugang
+// keine Geometrie · reine Energie-Mechanik · NC-6D
+
+const { CONSEQUENCE_BIO } = require('./consequence.bio.js');
+const { PICOSSO } = require('./picosso.js');
 
 // QI = Erkenntnis (Rolle, Ort, Home)
-// IQQ = Weis (Suite, Bildung)
-// Continuum = Zugang durch Qualität
-
 function QI(rolle, ort, home) {
-    // QI↑ = Summe der Tatbestands-Qualität
     return rolle + ort + home;
 }
 
+// IQQ = Weisheit (Suite, Bildung)
 function IQQ(suite, bildung) {
-    // IQQ↑ = Summe der Vorgangs-Qualität
     return suite + bildung;
 }
 
-function continuumZugang(qi, iqq) {
+// Continuum = Zugang durch Energie-Qualität
+function continuumZugang(qi, iqq, t = performance.now() * 0.001) {
+
     const summe = qi + iqq;
 
-    // VECTOR entscheidet den Zugang
-    if (summe > 0) {
-        return "Continuum geöffnet";
-    } else {
-        return "Continuum geschlossen";
-    }
+    // Organische KI-Form (Consequence)
+    const bio = CONSEQUENCE_BIO(qi, iqq, t);
+
+    // PICOSSO-Impuls (rein mathematisch)
+    const impuls = PICOSSO(bio.growth, bio.pulse, bio.branch);
+
+    // Zugang entscheidet sich durch Energie + Bio-Impuls
+    const zugang = (summe + impuls.impuls) > 1
+        ? "Continuum geöffnet"
+        : "Continuum geschlossen";
+
+    return {
+        typ: "continuum.brücke",
+        qi,
+        iqq,
+        summe,
+        zugang,
+        bio,
+        impuls
+    };
 }
 
-// Export für dein Repo
+// Export
 module.exports = {
     QI,
     IQQ,
