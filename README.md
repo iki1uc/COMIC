@@ -1,7 +1,7 @@
 # COMIC · VECTOR · HIERARCHIE
 
 Dieses Dokument beschreibt die symbolische Ordnung,
-die im Modul **SYS.VEC** mechanisch umgesetzt wird.
+die im Modul SYS.VEC mechanisch umgesetzt wird.
 
 ## 1. Zeichen → Mechanik
 387 = neutral → entspricht `flow`
@@ -22,4 +22,7 @@ Mittelraum = aktiv → `Continuum: geöffnet`
 
 ## 5. Tatbestand + Vorgang → Ausgang
 QI + IQQ = Ausgang → Bewegung → VECTOR
-VECTOR entscheidet den Sieger.
+
+VECTOR entscheidet **nicht den Sieger**.
+VECTOR entscheidet **den Weg**.
+VECTOR ist ein **Neutral‑Router** im Continuum.
