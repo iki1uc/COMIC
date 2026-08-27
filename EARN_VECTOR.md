@@ -1,25 +1,22 @@
-# EARN
+# EARN / VECTOR
 
-EARN ist der Tatbestand.
+EARN = Tatbestand.  
+VECTOR = Vorgang.
 
-EARN besteht aus:
-- Rolle (Wer)
-- Ort (Wo)
-- Home (Woher)
+EARN trägt QI.  
+VECTOR trägt IQQ.
 
-EARN ist reine Existenz.
-Keine Bewegung.
-Keine Qualität.
-Keine Richtung.
+Tatbestand + Vorgang = Ausgang.  
+Ausgang → Bewegung.  
+Bewegung → VECTOR.  
+VECTOR → Sieger.
 
-QI misst die Reinheit des Tatbestands.
-IQQ misst die Reinheit des Vorgangs.
+QI = Reinheit des Tatbestands.  
+IQQ = Reinheit des Vorgangs.
 
-VECTOR entsteht aus EARN + QI + IQQ.
-ENGINE treibt VECTOR.
-ROLLE autorisiert VECTOR.
-Continuum öffnet sich bei hoher Qualität.
-nochance.vector sperrt bei niedriger Qualität.
+Hohe Reinheit → offenes Continuum.  
+Niedrige Reinheit → nochance.vector.
 
-EARN ist die Wurzel.
-Alles andere ist Ableitung.
+EARN ist Ursprung.  
+VECTOR ist Richtung.  
+Ausgang ist Klarheit.
