@@ -1,32 +1,70 @@
+// NEUCITY – COMIC Lauf 5 – Achsen-Stadt
 import { GEOG } from "./GEO.geo.js";
 
 export const NEUCITY = {
 
-    // Leitbahn: Breite / Höhe / Tiefe / Trans
+    // Leitbahn-Achse
     leitbahn(v) {
+        const breite = v * 3;
+        const hoehe = v * 9;
+        const tiefe = v * 27;
+        const trans = v * 81;
+
+        const neutral = (breite + hoehe + tiefe + trans) / 4;
+        const continuum = breite * trans;
+        const sprung = continuum + hoehe;
+
         return {
-            breite: v * 3,
-            hoehe: v * 9,
-            tiefe: v * 27,
-            trans: v * 81
+            axis: "LEITBAHN",
+            breite,
+            hoehe,
+            tiefe,
+            trans,
+            neutral,
+            continuum,
+            sprung
         };
     },
 
-    // Gegen‑Cache: invertierte GEO‑Segmente
+    // Gegen-Cache-Achse
     gegenCache() {
+        const HY = GEOG.HY().reverse();
+        const PE = GEOG.PE().reverse();
+        const PER = GEOG.PER().reverse();
+
+        const neutral = (HY.length + PE.length + PER.length) / 3;
+        const continuum = HY.length * PER.length;
+        const sprung = continuum + PE.length;
+
         return {
-            HY: GEOG.HY().reverse(),
-            PE: GEOG.PE().reverse(),
-            PER: GEOG.PER().reverse()
+            axis: "GEGENCACHE",
+            HY,
+            PE,
+            PER,
+            neutral,
+            continuum,
+            sprung
         };
     },
 
-    // TMP‑Resultierende: α / β / γ
+    // TMP-Resultierende-Achse
     tmpResult(v) {
+        const TMPa = GEOG.TMPa().map(x => x + "_a");
+        const TMPb = GEOG.TMPb().map(x => x + "_b");
+        const TMPg = GEOG.TMPg().map(x => x + "_g");
+
+        const neutral = (TMPa.length + TMPb.length + TMPg.length) / 3;
+        const continuum = TMPa.length * TMPg.length;
+        const sprung = continuum + TMPb.length;
+
         return {
-            TMPa: GEOG.TMPa().map(x => x + "_a"),
-            TMPb: GEOG.TMPb().map(x => x + "_b"),
-            TMPg: GEOG.TMPg().map(x => x + "_g"),
+            axis: "TMP",
+            TMPa,
+            TMPb,
+            TMPg,
+            neutral,
+            continuum,
+            sprung,
             value: v
         };
     },
