@@ -1,59 +1,32 @@
-// --- Systemobjekt für Virtual Marketplace ---
+// --- Industrie‑VEC: technischer Routing‑Kern ---
 const VEC = {
     active: true,
-    vector: true,
-    genie: true,
+    engine: true,      // NC.engine
+    geo: true,         // GEO.physik + GEO.geo
+    dyn: true,         // Achsen
+    sure: true,        // Stand
+    neo: true,         // Dimension
     control: false,
     passage: false,
     state: "idle",
-    trades: []
+    impulses: []       // technische Impulse, keine Trades
 };
 
-// --- Kontrolle durch DOO/IT ---
+// --- DOO/IT.tech Kontrolle ---
 function DOO_control() {
     VEC.control = true;
     VEC.state = "control-ready";
-    return "DOO/IT Kontrolle aktiviert.";
+    return "DOO/IT.tech Kontrolle aktiviert.";
 }
 
-// --- DOOR Übergang ---
+// --- DOOR.tech Übergang ---
 function DOOR_passage() {
-    if (!VEC.control) {
-        VEC.passage = true;
-        VEC.state = "tmp-transition";
-        return "DOOR geöffnet (tmp) → Übergang ohne Kontrolle.";
-    }
     VEC.passage = true;
-    VEC.state = "stable-transition";
-    return "DOOR stabil geöffnet → Kontrolle aktiv.";
+    VEC.state = VEC.control ? "stable-transition" : "tmp-transition";
+    return `DOOR.tech geöffnet → ${VEC.state}`;
 }
 
-// --- VECTOR Routing ---
-function VECTOR_route(input) {
-    if (!VEC.passage) return "Kein Übergang aktiv.";
-    return `Routing über .VECTOR: ${input}`;
-}
-
-// --- GENIE Bewertung ---
-function GENIE_rate(value) {
-    if (!VEC.genie) return "GENIE nicht aktiv.";
-    const score = Math.round(Math.random() * 100);
-    return `GENIE Bewertung für '${value}': ${score}`;
-}
-
-// --- Marketplace Trade ---
-function VEC_trade(item) {
-    if (!VEC.passage) return "Trade blockiert → kein Übergang.";
-    const rating = GENIE_rate(item);
-    VEC.trades.push({ item, rating });
-    return `Trade ausgeführt: ${item} → ${rating}`;
-}
-
-module.exports = {
-    VEC,
-    DOO_control,
-    DOOR_passage,
-    VECTOR_route,
-    GENIE_rate,
-    VEC_trade
-};
+// --- VECTOR.tech Routing ---
+function VECTOR_route(segment, axis) {
+    if (!VEC.passage) return "Kein technischer Übergang aktiv.";
+    return `Industrie‑Routing
