@@ -1,8 +1,16 @@
-{
-    "id": "BEAM-01",
-    "axis": "X",
-    "layer": 1,
-    "x4": true,
-    "state": "active",
-    "nc": true
+export function BEAM_729() {
+    const beams = [];
+    for (let i = 1; i <= 729; i++) {
+        beams.push({
+            id: `BEAM-${i}`,
+            axis: "X",
+            layer: Math.ceil(i / 81),   // 9 Schichten à 81
+            index: i,
+            x4: (i % 4 === 0),
+            state: "active",
+            nc: true,
+            timestamp: Date.now()
+        });
+    }
+    return beams;
 }
