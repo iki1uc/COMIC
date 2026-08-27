@@ -483,10 +483,10 @@ log('⌨️  a=ATTACK  o=ORG  r=RUNTIME  m=MÜNZEN  b=BUILD  e=REORG  x=RESET  s
 log('★ STERN-MANN LACHT ☺ · System bereit', 'system');
 log('💡 Klick auf 6D-Zellen oder Münzen für manuelle Steuerung', 'flow');
 
+<script>
 // Chromium OS Simulation
 setInterval(() => {
   if (STATE.runtime && STATE.build) {
-    // Automatische Münz-Generierung im Hintergrund
     if (Math.random() < 0.1) {
       const factor = 0.5 + Math.random() * 1.5;
       STATE.coins.gold += Math.round(2 * factor);
@@ -499,6 +499,15 @@ setInterval(() => {
 }, 3000);
 
 log('☺ CHROMIUM OS · läuft im Hintergrund · automatische Generierung aktiv', 'system');
+</script>
+<script type="module">
+import { RUN3_PICOSSO } from './picosso.run.js';
+
+const rolle = { power: 9 };
+const markt = { volumen: 3, impuls: 6 };
+const impuls = 12;
+
+RUN3_PICOSSO(rolle, markt, impuls);
 </script>
 
 </body>
