@@ -1,8 +1,11 @@
 # ALL · Master-Sortierer · iki1uc
 
 ALL ist die Oberstation des iki1uc-Systems.
-Sie erzeugt die QI/IQQ-Master-Matrix und sortiert alle RESPO-Module
-zu einer funktionalen Einheit.
+ALL erzeugt die QI/IQQ-Master-Matrix und stellt die Basis
+für alle Sortier- und Fusionseinheiten bereit.
+
+ALL sortiert nicht selbst.
+ALL erzeugt die Ordnung, die andere Module nutzen.
 
 ──────────────────────────────────────────────
 ## Funktionen
@@ -13,9 +16,12 @@ zu einer funktionalen Einheit.
 - Vorsortierung aller RESPO-Module
 - Einheitliche Basis für CUBE-MIND, META-CORE, 81×81
 
+ALL ist der Master-Kern.
+Sortierung erfolgt durch die Räume, nicht durch ALL.
+
 ──────────────────────────────────────────────
 ## Dateien
 
 - ALL.core.js – Masterengine
 - id.html – ALL-Stempel
-- index.html – ALL-Matrix + Sortierung
+- index.html – ALL-Matrix + Vorsortierung
