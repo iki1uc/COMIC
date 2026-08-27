@@ -1,3 +1,26 @@
-function MARKET_ID(markt) {
-    return markt.preis**2 + markt.volumen**2 + markt.impuls**2;
+/*
+  MARKET_ID · 2D Edition
+  Höhe + Breite · Industrie-6.0-kompatibel
+*/
+
+export function MARKET_ID(markt) {
+
+    // Höhe (vertical)
+    const hoehe = markt.preis**2 + markt.volumen**2 + markt.impuls**2;
+
+    // Breite (horizontal)
+    const breite = markt.preis + markt.volumen + markt.impuls;
+
+    return {
+        axis: "INDUSTRY_ID",
+        hoehe,
+        breite,
+        preis: markt.preis,
+        volumen: markt.volumen,
+        impuls: markt.impuls,
+        info: "Industrie-ID in 2D erzeugt (Höhe + Breite)",
+        valid: true,
+        continue: true,
+        next: "INDUSTRY_ID_next"
+    };
 }
