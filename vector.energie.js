@@ -1,25 +1,24 @@
-// vector.energie.js
-// Reine VECTOR-Energie-Mechanik
+const { CONSEQUENCE_BIO } = require('./consequence.bio.js');
+const { PICASSO } = require('./PICASSO.js');
 
-// QI = Reinheit des Tatbestands
-function QI(rolle, ort, home) {
-    return rolle + ort + home;
+function VECTOR_ENERGIE_BIO(qi, iqq, t = performance.now() * 0.001) {
+
+    const mech = VECTOR_ENERGIE(qi, iqq);
+
+    const bio = CONSEQUENCE_BIO(mech, qi + iqq, t);
+
+    return {
+        typ: "vector.energie.bio",
+
+        mechanik: mech,
+
+        growth: bio.growth,
+        pulse: bio.pulse,
+        mutate: bio.mutate,
+        branch: bio.branch,
+
+        hologram: bio.hologram,
+
+        picasso: PICASSO.run(bio.growth)
+    };
 }
-
-// IQQ = Reinheit des Vorgangs
-function IQQ(suite, bildung) {
-    return suite + bildung;
-}
-
-// VECTOR.ENERGIE = rohe Kraft vor der Bewegung
-function VECTOR_ENERGIE(qi, iqq) {
-    // 60% QI, 40% IQQ – deine Achsenlogik
-    return (qi * 0.6) + (iqq * 0.4);
-}
-
-// Export
-module.exports = {
-    QI,
-    IQQ,
-    VECTOR_ENERGIE
-};
