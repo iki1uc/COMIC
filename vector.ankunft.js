@@ -1,55 +1,27 @@
-// vector.ankunft.js
-// Der Ankunfts-Vektor – Endpunkt der Bewegung
+const { CONSEQUENCE_BIO } = require('./consequence.bio.js');
+const { PICASSO } = require('./PICASSO.js');
 
-// QI = Reinheit des Tatbestands
-function QI(rolle, ort, home) {
-    return rolle + ort + home;
-}
+function VECTOR_ANKUNFT_BIO(qi, iqq, t = performance.now() * 0.001) {
 
-// IQQ = Reinheit des Vorgangs
-function IQQ(suite, bildung) {
-    return suite + bildung;
-}
+    const mech = VECTOR_ANKUNFT(qi, iqq);
 
-// VECTOR.ENERGIE = rohe Kraft
-function VECTOR_ENERGIE(qi, iqq) {
-    return (qi * 0.6) + (iqq * 0.4);
-}
-
-// VECTOR.POVER = Potenzkraft
-function VECTOR_POVER(qi, iqq) {
-    return ((qi * qi) + (iqq * iqq)) / 9;
-}
-
-// VECTOR.SCHLAG = Momentimpuls
-function VECTOR_SCHLAG(qi, iqq) {
-    return (qi * iqq) / 9;
-}
-
-// VECTOR.ANKUNFT = Endpunkt der Bewegung
-function VECTOR_ANKUNFT(qi, iqq) {
-    const energie = VECTOR_ENERGIE(qi, iqq);
-    const pover = VECTOR_POVER(qi, iqq);
-    const schlag = VECTOR_SCHLAG(qi, iqq);
-
-    const ankunft = (qi + iqq + energie + pover + schlag) / 9;
+    const bio = CONSEQUENCE_BIO(mech.ankunft, mech.ausgang, t);
 
     return {
-        typ: "vector.ankunft",
-        energie,
-        pover,
-        schlag,
-        ankunft,
-        ausgang: ankunft
+        typ: "vector.ankunft.bio",
+
+        energie: mech.energie,
+        pover: mech.pover,
+        schlag: mech.schlag,
+        ankunft: mech.ankunft,
+
+        growth: bio.growth,
+        pulse: bio.pulse,
+        mutate: bio.mutate,
+        branch: bio.branch,
+
+        hologram: bio.hologram,
+
+        picasso: PICASSO.run(bio.growth)
     };
 }
-
-// Export
-module.exports = {
-    QI,
-    IQQ,
-    VECTOR_ENERGIE,
-    VECTOR_POVER,
-    VECTOR_SCHLAG,
-    VECTOR_ANKUNFT
-};
