@@ -1,10 +1,27 @@
-function STAND(markt, commander) {
+// time.js – COMIC Rollen-Stand (Markt + Commander)
+export function STAND(markt, commander) {
+    const preis = markt.preis;
+    const volumen = markt.volumen;
+    const impuls = markt.impuls;
+    const wert = markt.wert;
+
+    const impact = commander.impact;
+
+    // COMIC-konforme Achsen
+    const neutral = (preis + volumen + impuls + impact) / 4;   // Neutralpunkt
+    const continuum = impuls * impact;                         // Continuum-Achse
+    const sprung = continuum + wert;                           // Rollen-Sprung
+    const stand = sprung;                                      // Stand = Ausgang
+
     return {
-        preis: markt.preis,
-        volumen: markt.volumen,
-        impuls: markt.impuls,
-        wert: markt.wert,
-        impact: commander.impact,
-        stand: markt.wert * commander.impact
+        preis,
+        volumen,
+        impuls,
+        wert,
+        impact,
+        neutral,
+        continuum,
+        sprung,
+        stand
     };
 }
