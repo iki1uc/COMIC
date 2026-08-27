@@ -3,7 +3,7 @@
 SEED ⟁ bildet den Ursprung.
 
 Die sechs Rollen sind geometrisch angeordnet:
-
+ 
 - ORT   → Position
 - HOME  → Zentrum
 - USER  → Zugriff
