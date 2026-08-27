@@ -1,3 +1,29 @@
-function MARKET_ID(markt) {
-    return markt.preis**2 + markt.volumen**2 + markt.impuls**2;
+/*
+  MARKET_ID · 6D Industrial
+  Markt-Identität · Atomisch · Transparent · NC-kompatibel
+*/
+
+export function MARKET_ID(markt) {
+
+    // 1 · 6D-Berechnung (Preis² + Volumen² + Impuls²)
+    const id = markt.preis**2 + markt.volumen**2 + markt.impuls**2;
+
+    // 2 · Atom-Formel
+    const atom = {
+        axis: "MARKT_ID",
+        id,
+        preis: markt.preis,
+        volumen: markt.volumen,
+        impuls: markt.impuls,
+        time: arg.sync(),
+        info: "6D Industrial Markt-ID erzeugt",
+        valid: true
+    };
+
+    // 3 · Unendlichkeits-Formel
+    return {
+        ...atom,
+        continue: true,
+        next: "MARKET_ID_next"
+    };
 }
