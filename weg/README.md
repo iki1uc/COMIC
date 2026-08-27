@@ -1,19 +1,32 @@
-# VEC.VirtualMarketplace
+# COMIC / WEG · MULTI CORE
 
-## Zweck
-VEC.VirtualMarketplace ist die digitale Markt- und Börsenstation des Systems.  
-Sie verbindet DOOR (Durchgang), DOO/IT (Kontrolle), .VECTOR (Routing), GENIE (Bewertung) und API (Durchlass).
+Der Ordner **weg** ist der Bewegungs‑Kernel des Systems.
+Er besteht aus mehreren parallelen Kernen:
 
-## Funktionen
-- Übergänge erzeugen (tmp oder stabil)
-- Marktflüsse routen (.VECTOR)
-- Items bewerten (GENIE)
-- Trades ausführen
-- Kontrolle durch DOO/IT
-- Durchlass über DOOR + API
+1. **Weg-Core**  
+   Grundbewegung, Richtung, Pfad.
 
-## Dateien
-- API.raw – Rohdefinition der Station
-- API.system.js – Funktionslogik
-- ID.html – Modulidentität
-- index.html – Interaktive Oberfläche
+2. **Lauf-Core**  
+   Geschwindigkeit, Verlauf, Impuls.
+
+3. **Forsaken-Core**  
+   Schatten, Differenz, Verlustenergie.
+
+4. **Open-Core**  
+   Zugang, Freigabe, Übergang.
+
+5. **Push-Core**  
+   Druck, Verstärkung, Stoß.
+
+6. **Time-Core**  
+   Frequenz, Takt, Ablauf.
+
+7. **Stand-Core**  
+   Stabilität, Halt, Balance.
+
+8. **Consequence-Core**  
+   Folge, Wachstum, organische Reaktion.
+
+Alle Kerne arbeiten getrennt.
+Bewegung entsteht durch ihre Verbindung.
+COMIC bleibt roh: keine Figuren, keine Formen — nur Impuls.
