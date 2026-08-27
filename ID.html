@@ -1,3 +1,24 @@
-<div id="picosso">
-    <canvas id="picossoCanvas" width="600" height="300"></canvas>
-</div>
+export function PICOSSO_COMIC(ctx, alpha, beta, gamma) {
+
+    ctx.lineWidth = 4;          // Comic-Strich
+    ctx.lineCap = "round";      // weiche Enden, kein Anime
+    ctx.strokeStyle = "#00ff55"; // kräftige Comic-Farbe
+
+    // Zerfall
+    ctx.beginPath();
+    ctx.moveTo(20, 150);
+    ctx.lineTo(150, 150 - alpha * 1.2);
+    ctx.stroke();
+
+    // Neuordnung
+    ctx.beginPath();
+    ctx.moveTo(150, 150 - alpha * 1.2);
+    ctx.lineTo(300, 150 - beta * 1.4);
+    ctx.stroke();
+
+    // Rückkehr
+    ctx.beginPath();
+    ctx.moveTo(300, 150 - beta * 1.4);
+    ctx.lineTo(450, 150 - gamma * 1.6);
+    ctx.stroke();
+}
