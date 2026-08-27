@@ -1,4 +1,72 @@
-OS.KERNEL = /boot/kernel.bin
-OS.ENTRY = 0x1000
-OS.MAP = flat
-OS.HANDOFF = jump(OS.ENTRY)
+OS.loader = {
+
+  kernel: "/boot/kernel.bin",
+  entry:  0x1000,
+  map:    "flat",
+
+  loadKernel() {
+    const atom = OS.atom("loadKernel", "Lade Kernel: " + this.kernel);
+    RESPO.log(atom.info);
+
+    const data = OS.disk.read(this.kernel);
+
+    if (!data) {
+      RESPO.error("Kernel nicht gefunden: " + this.kernel);
+      return OS.infinity(OS.atom("loadKernel_fail", "Kein Kernel"));
+    }
+
+    RESPO.log("Kernel geladen (" + data.size + " Bytes)");
+    return OS.infinity(OS.atom("loadKernel_ok", "Kernel OK"));
+  },
+
+  verifyKernel(data) {
+    const atom = OS.atom("verifyKernel", "Prüfe CRC");
+
+    const ok = WETTE.verify(data);
+
+    if (!ok) {
+      RESPO.error("Kernel-Check fehlgeschlagen (CRC)");
+      return OS.infinity(OS.atom("verifyKernel_fail", "CRC Fehler"));
+    }
+
+    RESPO.log("Kernel-Check OK");
+    return OS.infinity(OS.atom("verifyKernel_ok", "CRC OK"));
+  },
+
+  mapKernel(data) {
+    const atom = OS.atom("mapKernel", "Map: " + this.map + " → " + this.entry);
+    RESPO.log(atom.info);
+
+    SLIDE.relocate(this.entry, data);
+
+    return OS.infinity(OS.atom("mapKernel_ok", "Relocate OK"));
+  },
+
+  handoff() {
+    const atom = OS.atom("handoff", "Handoff → jump(" + this.entry + ")");
+    RESPO.log(atom.info);
+
+    OS.HANDOFF = () => jump(this.entry);
+    OS.HANDOFF();
+
+    return OS.infinity(OS.atom("handoff_ok", "Sprung ausgeführt"));
+  },
+
+  start() {
+    RESPO.log("OS.loader START");
+
+    const data = this.loadKernel();
+    if (!data.valid) return;
+
+    const check = this.verifyKernel(data);
+    if (!check.valid) return;
+
+    const map = this.mapKernel(data);
+    if (!map.valid) return;
+
+    const hand = this.handoff();
+    if (!hand.valid) return;
+
+    RESPO.ok("OS.loader COMPLETE");
+  }
+};
