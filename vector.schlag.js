@@ -1,32 +1,22 @@
-// vector.schlag.js
-// Impuls-Vektor – der Moment-Schlag
-// PICASSO integriert · iki1uc · industry-6.0
+import { CONSEQUENCE_BIO } from './consequence.bio.js';
 
-import { PICASSO } from './PICASSO.js';
+export function VECTOR_SCHLAG_BIO(qi, iqq, t = performance.now() * 0.001) {
 
-// QI = Reinheit des Tatbestands
-export function QI(rolle, ort, home) {
-    const base = rolle + ort + home;
-    const p = PICASSO.run(base);
-    return { base, picasso: p };
-}
+    const schlag = VECTOR_SCHLAG(qi, iqq);
 
-// IQQ = Reinheit des Vorgangs
-export function IQQ(suite, bildung) {
-    const base = suite + bildung;
-    const p = PICASSO.run(base);
-    return { base, picasso: p };
-}
-
-// VECTOR.SCHLAG = Momentimpuls (QI * IQQ) / 9
-export function VECTOR_SCHLAG(qi, iqq) {
-    const impuls = (qi.base * iqq.base) / 9;
-    const p = PICASSO.run(impuls);
+    const bio = CONSEQUENCE_BIO(schlag.impuls, schlag.ausgang, t);
 
     return {
-        typ: "vector.schlag",
-        impuls,
-        ausgang: impuls,
-        picasso: p
+        typ: "vector.schlag.bio",
+        impuls: schlag.impuls,
+
+        growth: bio.growth,
+        pulse: bio.pulse,
+        mutate: bio.mutate,
+        branch: bio.branch,
+
+        hologram: bio.hologram,
+
+        picasso: PICASSO.run(bio.growth)
     };
 }
