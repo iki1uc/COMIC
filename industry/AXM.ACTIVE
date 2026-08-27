@@ -12,5 +12,4 @@ FREQ.12 = iki → bir → uc → LE → iki1uc → GO → sys → tem → AU →
 SEQ.360 = D0 → D1 → D2 → D3 → D4 → D5 → D0
 
 KONSTELLATION = TMP
-ACTIVE = TRUE
-
+STATE = AXM.ACTIVE
