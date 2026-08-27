@@ -1,78 +1,75 @@
 /*
-  OS.sysview
-  Hinweis: Keine Gewähr.
-  Werte können aufgrund von abgenutzter Hardware,
-  Alter, Zustand oder realer Abweichung variieren.
-  OS.sysview zeigt nur Messwerte und mathematische
-  Zuwachsberechnung – keine Garantie.
+  OS.sysview – INTERNAL ONLY
+  Hinweis:
+  Alle Werte sind simuliert.
+  Keine echte Hardware wird gelesen.
+  Alles läuft im tmp-Speicher.
 */
 
 OS.sysview = {
 
+  // interne Simulation statt echter Hardware
   read: function() {
+
+    // OS.hardware ist nur ein internes Objekt
+    let hw = OS.hardware || {};
+
     return {
-      cpu: OS.hardware.cpu.load,     // %
-      ram: OS.hardware.ram.used,     // GB
-      gpu: OS.hardware.gpu.load,     // %
-      net: OS.net.speed,             // Mbit/s
-      usb: OS.usb.speed,             // Mbit/s
-      ssd: OS.ssd.speed              // MB/s
-    }
+      cpu: hw.cpu?.load ?? 0,     // %
+      ram: hw.ram?.used ?? 0,     // GB
+      gpu: hw.gpu?.load ?? 0,     // %
+      net: hw.net?.speed ?? 0,    // Mbit/s
+      usb: hw.usb?.speed ?? 0,    // Mbit/s
+      ssd: hw.ssd?.speed ?? 0     // MB/s
+    };
   },
 
+  // interne mathematische Zuwachsberechnung
   growth: function(hw) {
 
-    let g = {}
+    let g = {};
 
-    // USB-Zuwachs (real möglich, mathematisch)
-    g.usb = hw.usb > hw.net
-      ? hw.usb - hw.net
-      : 0
+    g.usb = hw.usb > hw.net ? hw.usb - hw.net : 0;
+    g.ssd = hw.ssd > hw.net ? hw.ssd - hw.net : 0;
 
-    // SSD-Zuwachs (real möglich, mathematisch)
-    g.ssd = hw.ssd > hw.net
-      ? hw.ssd - hw.net
-      : 0
-
-    return g
+    return g;
   },
 
+  // interne Bewertung (Alpha/Beta/Gamma)
   rating: function(hw) {
 
-    // Alpha / Beta / Gamma / Grün / Gelb / Rot
-    // Bewertung von anderen, nicht vom System selbst
-
     if (hw.cpu < 20 && hw.ram < 4)
-      return "Gamma · Rot"
+      return "Gamma · Rot";
 
     if (hw.cpu < 40 && hw.ram < 8)
-      return "Beta · Gelb"
+      return "Beta · Gelb";
 
     if (hw.cpu >= 40 && hw.cpu <= 70)
-      return "Alpha · Grün"
+      return "Alpha · Grün";
 
     if (hw.cpu > 80 || hw.gpu > 80)
-      return "Alpha · Rot"
+      return "Alpha · Rot";
 
-    return "Gamma · Grün"
+    return "Gamma · Grün";
   },
 
+  // interne Anzeige (nur tmp, keine Speicherung)
   display: function() {
 
-    let hw = this.read()
-    let g  = this.growth(hw)
-    let r  = this.rating(hw)
+    let hw = this.read();
+    let g  = this.growth(hw);
+    let r  = this.rating(hw);
 
-    console.log("CPU:", hw.cpu + "%")
-    console.log("RAM:", hw.ram + " GB")
-    console.log("GPU:", hw.gpu + "%")
-    console.log("NET:", hw.net + " Mbit/s")
-    console.log("USB:", hw.usb + " Mbit/s")
-    console.log("SSD:", hw.ssd + " MB/s")
+    console.log("CPU:", hw.cpu + "%");
+    console.log("RAM:", hw.ram + " GB");
+    console.log("GPU:", hw.gpu + "%");
+    console.log("NET:", hw.net + " Mbit/s");
+    console.log("USB:", hw.usb + " Mbit/s");
+    console.log("SSD:", hw.ssd + " MB/s");
 
-    console.log("Zuwachs USB:", g.usb)
-    console.log("Zuwachs SSD:", g.ssd)
+    console.log("Zuwachs USB:", g.usb);
+    console.log("Zuwachs SSD:", g.ssd);
 
-    console.log("Bewertung:", r)
+    console.log("Bewertung:", r);
   }
-}
+};
