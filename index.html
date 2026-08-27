@@ -21,21 +21,35 @@ body {
   margin: 0 auto;
 }
 
-/* HEADER */
-.header {
-  text-align: center;
-  border-bottom: 2px solid rgba(255,215,0,0.15);
-  padding-bottom: 10px;
-  margin-bottom: 14px;
-}
-.header h1 {
-  font-size: 28px;
-  background: linear-gradient(90deg, #ffd700, #ff6600, #ff44ff, #00ccff, #ffd700);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 6px;
-  animation: glow 3s infinite;
-}
+<!-- UI / PICOSSO / CONTROL PANEL -->
+<style>
+  #picoControls {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    display: flex;
+    gap: 8px;
+  }
+  #picoControls button {
+    background: #111;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 6px 10px;
+    font-family: monospace;
+    cursor: pointer;
+  }
+</style>
+
+<div id="picoControls">
+  <button id="run3Btn">RUN‑3</button>
+  <button id="forsakenBtn">Forsaken</button>
+  <button id="laufBtn">Lauf</button>
+  <button id="wegBtn">Weg</button>
+  <button id="diagBtn">Diagonal</button>
+  <button id="balanceBtn">Balance</button>
+</div>
+
 @keyframes glow {
   0%,100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.1)); }
   50% { filter: drop-shadow(0 0 30px rgba(255,215,0,0.3)); }
