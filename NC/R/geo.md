@@ -1,37 +1,17 @@
-# GEO · SEED ⟁ · ROLLE-Modular
-# reine Struktur · keine Last · keine Engine
+# Achsen-Entwicklung (3³ → 9³)
 
-SEED:
-  SYMBOL: ⟁
-  BEDEUTUNG: Ursprung · Zentrum · HOME
+In der GEO-Struktur entspricht die Achse 3 (USER) einer seitlichen,
+begrenzten Wirkung: Zugriff, aber keine Form. 3³ steht für geringe
+Reichweite und lokale Sichtbarkeit.
 
-GEO-MODULAR:
-  ORT:   Position
-  HOME:  Zentrum (SEED)
-  USER:  Zugriff
-  USE:   Funktion
-  OUT:   Ausgabe
-  ROLLE: Gesamtform
+Die Achse 9 (ROLLE) ist die untere rechte Formachse. Sie trägt die
+Gesamtgestalt und ist strukturell nicht übersehbar. 9³ steht für hohe
+Reichweite, starke Sichtbarkeit und stabile Wirkung.
 
-GEOMETRIE:
+Die Entwicklung von 3³ zu 9³ beschreibt eine Achsen-Transformation
+innerhalb der GEO-Identität: von Zugriff zu Form, von lokal zu
+strukturell. 81 (9²) markiert die Phase, in der die Wirkung klar
+sichtbar wird und nicht mehr ignoriert werden kann.
 
-        ORT
-   USER     USE
-
-       ⟁ (HOME)
-
-   OUT      ROLLE
-
-REGELN:
-  - SEED ⟁ ist immer Zentrum.
-  - ORT liegt oben.
-  - USER links.
-  - USE rechts.
-  - OUT unten links.
-  - ROLLE unten rechts.
-  - Zusammen bilden sie die GEO-Identität.
-
-HINWEIS:
-  ID.html zeigt die reine Form.
-  index.html zeigt die funktionelle Ausgabe.
-  geo.md trägt die Struktur.
+Dies ist eine reine strukturelle Beschreibung innerhalb des
+GEO-Modells, ohne Last, ohne Engine, ohne Bewertung.
