@@ -1,52 +1,47 @@
-// --- Systemobjekt für Virtual Marketplace ---
+// --- Börsen‑VEC: Volatilitäts‑Kern ---
 const VEC = {
     active: true,
-    vector: true,
-    genie: true,
+    vola: true,          // Volatilität aktiv
+    axes: [6, 9, 12],    // Börsen‑Achsen
     control: false,
     passage: false,
     state: "idle",
-    trades: []
+    swings: []           // Schwankungen statt Trades
 };
 
-// --- Kontrolle durch DOO/IT ---
+// --- DOO/IT.vola Kontrolle ---
 function DOO_control() {
     VEC.control = true;
-    VEC.state = "control-ready";
-    return "DOO/IT Kontrolle aktiviert.";
+    VEC.state = "vola-control-ready";
+    return "DOO/IT.vola Kontrolle aktiviert.";
 }
 
-// --- DOOR Übergang ---
+// --- DOOR.vola Übergang ---
 function DOOR_passage() {
-    if (!VEC.control) {
-        VEC.passage = true;
-        VEC.state = "tmp-transition";
-        return "DOOR geöffnet (tmp) → Übergang ohne Kontrolle.";
-    }
     VEC.passage = true;
-    VEC.state = "stable-transition";
-    return "DOOR stabil geöffnet → Kontrolle aktiv.";
+    VEC.state = VEC.control ? "stable-vola" : "tmp-vola";
+    return `DOOR.vola geöffnet → Zustand: ${VEC.state}`;
 }
 
-// --- VECTOR Routing ---
-function VECTOR_route(input) {
-    if (!VEC.passage) return "Kein Übergang aktiv.";
-    return `Routing über .VECTOR: ${input}`;
+// --- VECTOR.vola Routing ---
+function VECTOR_route(impulse) {
+    if (!VEC.passage) return "Kein Börsen‑Übergang aktiv.";
+    const axis = VEC.axes[Math.floor(Math.random() * VEC.axes.length)];
+    return `Börsen‑Routing über Achse ${axis}: Impuls='${impulse}'`;
 }
 
-// --- GENIE Bewertung ---
-function GENIE_rate(value) {
-    if (!VEC.genie) return "GENIE nicht aktiv.";
-    const score = Math.round(Math.random() * 100);
-    return `GENIE Bewertung für '${value}': ${score}`;
+// --- GENIE.vola Bewertung ---
+function GENIE_rate(impulse) {
+    const swing = Math.round(Math.random() * 100);
+    return `GENIE.vola Schwankungsbewertung für '${impulse}': ${swing}`;
 }
 
-// --- Marketplace Trade ---
-function VEC_trade(item) {
-    if (!VEC.passage) return "Trade blockiert → kein Übergang.";
-    const rating = GENIE_rate(item);
-    VEC.trades.push({ item, rating });
-    return `Trade ausgeführt: ${item} → ${rating}`;
+// --- Börsen‑Impuls ---
+function VEC_swing(impulse) {
+    if (!VEC.passage) return "Impuls blockiert → kein Börsen‑Übergang.";
+    const rating = GENIE_rate(impulse);
+    VEC.swings.push({ impulse, rating });
+    return `Börsen‑Schwankung verarbeitet: ${impulse} → ${rating}`;
 }
 
 module.exports = {
@@ -55,5 +50,5 @@ module.exports = {
     DOOR_passage,
     VECTOR_route,
     GENIE_rate,
-    VEC_trade
+    VEC_swing
 };
