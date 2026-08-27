@@ -1,32 +1,25 @@
-// vector.pover.js
-// Potenzkraft des VECTOR – reine Mechanik
+const { CONSEQUENCE_BIO } = require('./consequence.bio.js');
+const { PICASSO } = require('./PICASSO.js');
 
-// QI = Reinheit des Tatbestands
-function QI(rolle, ort, home) {
-    return rolle + ort + home;
-}
+function VECTOR_POVER_BIO(qi, iqq, t = performance.now() * 0.001) {
 
-// IQQ = Reinheit des Vorgangs
-function IQQ(suite, bildung) {
-    return suite + bildung;
-}
+    const mech = VECTOR_POVER(qi, iqq);
 
-// VECTOR.POVER = Potenzkraft (QI² + IQQ²) / 9
-function VECTOR_POVER(qi, iqq) {
-    const potenz = (qi * qi) + (iqq * iqq);
-    const pover = potenz / 9; // Achsen-Normierung
+    const bio = CONSEQUENCE_BIO(mech.potenz, mech.pover, t);
 
     return {
-        typ: "vector.pover",
-        potenz,
-        pover,
-        ausgang: pover
+        typ: "vector.pover.bio",
+
+        potenz: mech.potenz,
+        pover: mech.pover,
+
+        growth: bio.growth,
+        pulse: bio.pulse,
+        mutate: bio.mutate,
+        branch: bio.branch,
+
+        hologram: bio.hologram,
+
+        picasso: PICASSO.run(bio.growth)
     };
 }
-
-// Export
-module.exports = {
-    QI,
-    IQQ,
-    VECTOR_POVER
-};
