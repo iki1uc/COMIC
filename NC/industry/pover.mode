@@ -1,1 +1,38 @@
+/*
+  pover.mode · NC Industry
+  RUN 3 · expresso.kick · double black edition
 
+  Ziel:
+  - Industrie-Schwäche sichtbar machen
+  - Marktimpuls + Stand kombinieren
+  - Atomisch + Unendlich + Open Door
+*/
+
+import { arg } from "../core/arg.js";
+
+export const POVERTY_MODE = {
+
+    // 1 · Atom: Schwächewert berechnen
+    atom(markt, commander) {
+        const stand = markt.wert * commander.impact;
+        const pover = stand < 1 ? "kritisch" :
+                      stand < 10 ? "schwach" :
+                      stand < 50 ? "instabil" :
+                      "normal";
+
+        return {
+            axis: "INDUSTRY_POVER",
+            stand,
+            pover,
+            preis: markt.preis,
+            volumen: markt.volumen,
+            impuls: markt.impuls,
+            impact: commander.impact,
+            time: arg.sync(),
+            info: "Industrie-Schwäche (pover) berechnet",
+            valid: true
+        };
+    },
+
+    // 2 · Unendlichkeits-Formel
+    mode(markt, commander
