@@ -1,1 +1,53 @@
+/*
+  schwankung.mode · Börse 6.0
+  Schwankungen · Vibrationen · Volatilität
+  Atomisch · Transparent · NC-kompatibel
+*/
+
+import { arg } from "../core/arg.js";
+
+export const SCHWANKUNG_MODE = {
+
+    // 1 · Mikro-Vibration (kleine Schwankung)
+    vibe(stand) {
+        return Math.sin(stand) * 0.1;
+    },
+
+    // 2 · Volatilität (Breite der Schwankung)
+    vola(markt, commander) {
+        return Math.abs(markt.impuls - commander.impact);
+    },
+
+    // 3 · Swing (Richtung + Stärke)
+    swing(markt, commander) {
+        return (markt.impuls * commander.impact) - markt.preis * 0.01;
+    },
+
+    // 4 · Atom + Unendlichkeits-Formel
+    mode(markt, commander) {
+
+        const stand = markt.wert * commander.impact;
+
+        const atom = {
+            axis: "BOERSE_SCHWANKUNG",
+            stand,
+            vibe: this.vibe(stand),
+            vola: this.vola(markt, commander),
+            swing: this.swing(markt, commander),
+            preis: markt.preis,
+            volumen: markt.volumen,
+            impuls: markt.impuls,
+            impact: commander.impact,
+            time: arg.sync(),
+            info: "Börsenschwankung (vibe/vola/swing) berechnet",
+            valid: true
+        };
+
+        return {
+            ...atom,
+            continue: true,
+            next: "BOERSE_SCHWANKUNG_next"
+        };
+    }
+};
 
