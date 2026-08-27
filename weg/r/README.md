@@ -1,83 +1,44 @@
-PIPELINE2 · RAW Fusion · UC‑Layer
-PIPELINE2 ist die zweite Stufe des PIPELINE‑Systems.
-Während PIPELINE1 die Quelle, Zahl und den Vektor erzeugt,
-übernimmt PIPELINE2 die Fusion dieser Rohdaten.
+# PIPELINE2 · RAW Fusion · UC-Layer
 
-PIPELINE2 ist der RAW‑Layer, der alle UC‑Elemente verbindet, ordnet und weiterleitet.
+PIPELINE2 ist die zweite Stufe des WEG-Systems.
+PIPELINE1 erzeugt Quelle, Zahl und Vektor.
+PIPELINE2 fusioniert diese Rohdaten.
 
-⭐ 1. Zweck von PIPELINE2
-PIPELINE2 führt die Fusion der Rohdaten durch:
+## 1. Zweck
+RAW Fusion → Rohdaten zusammenführen  
+UC Fusion → UC-Elemente verbinden  
+Operator Fusion → Operatoren anwenden  
+Router Fusion → Positionen / Wege bestimmen  
 
-RAW Fusion → Rohdaten zusammenführen
+PIPELINE2 erzeugt die strukturierte Basis für PIPELINE3.
 
-UC Fusion → UC‑Elemente verbinden
+## 2. Struktur
+PIPELINE2 besteht aus vier Layern:
 
-Operator Fusion → Operatoren anwenden
+- RAW Layer → Rohdaten-Fusion  
+- UC Layer → UC-Elemente verbinden  
+- Operator Layer → Operatoren anwenden  
+- Router Layer → Positionen / Wege bestimmen  
 
-Router Fusion → Positionen und Wege bestimmen
+Diese vier Layer bilden die Fusionseinheit.
 
-PIPELINE2 erzeugt damit die strukturierte Basis, die PIPELINE3 (NET/NC) weiterverarbeitet.
+## 3. Dateien
+- ID.html → Identifikation  
+- index.html → Hauptansicht  
+- tool.html → Werkzeuge  
+- pos-router.uc.item → Router  
+- uc-fusion-01.item → UC-Fusion Block 01  
+- uc-fusion-02.item → UC-Fusion Block 02  
+- uc-operator.item → Operatoren  
 
-Weiter ausarbeiten:
+Dies ist der vollständige RAW-Fusion-Kern.
 
-RAW Fusion
+## 4. Rolle im System
+PIPELINE1 → Quelle  
+PIPELINE2 → Fusion  
+PIPELINE3 → Netz  
+PIPELINE4 → Output  
 
-UC Fusion
+PIPELINE2 nimmt Rohdaten und erzeugt Fusion.
 
-Operator Fusion
-
-Router Fusion
-
-⭐ 2. Struktur von PIPELINE2
-PIPELINE2 besteht aus vier klar getrennten Layern:
-
-Layer	Bedeutung
-RAW Layer	Rohdaten‑Fusion
-UC Layer	UC‑Elemente verbinden
-Operator Layer	Operatoren anwenden
-Router Layer	Positionen / Wege bestimmen
-
-
-Diese vier Layer bilden die vollständige Fusionseinheit.
-
-⭐ 3. Dateien im Repository
-Datei	Inhalt
-ID.html	Identifikation aller UC‑Elemente
-index.html	Hauptansicht von PIPELINE2
-tool.html	Werkzeuge für Fusion / Operatoren
-pos-router.uc.item	Router‑Definition (Positionen)
-uc-fusion-01.item	UC‑Fusion Block 01
-uc-fusion-02.item	UC‑Fusion Block 02
-uc-operator.item	Operator‑Definition für Fusion
-
-
-Diese Dateien bilden zusammen den vollständigen RAW‑Fusion‑Kern.
-
-⭐ 4. Rolle im Gesamtsystem
-PIPELINE2 ist die zweite Stufe des gesamten Durchlaufs:
-
-PIPELINE1 (Quelle)
-→
-PIPELINE2 (Fusion)
-→
-PIPELINE3 (Netz)
-→
-PIPELINE4 (Output)
-PIPELINE2 übernimmt die Rohdaten aus PIPELINE1
-und erzeugt daraus fusionierte, strukturierte Daten,
-die PIPELINE3 weiterverarbeitet.
-
-⭐ 5. Achsen in PIPELINE2
-PIPELINE2 nutzt die Achsen:
-
-Achse	Funktion
-6	Struktur / Dreieck
-9	Aggregation
-12	Raum / Position
-tmp	Zwischenraum
-
-
-Diese Achsen werden in den UC‑Items verwendet.
-
-⭐ 6. Status
-PIPELINE2 ist aktiv.
+## 5.
