@@ -1,23 +1,29 @@
-// ROLLE – Lauf 4 – forsaken.js
-// Zustand: Bewegung fällt aus der Achse und ordnet sich neu
-
+// FORSAKEN – COMIC Rollen-Drop + Rückkehr
 export function FORSAKEN(rolle, markt, impuls) {
 
-    // Zerfall der rechten Achse
-    const drop = (rolle.power * markt.volumen) - impuls;
+    const power = rolle.power;
+    const volumen = markt.volumen;
+    const marktImpuls = markt.impuls;
 
-    // Neuordnung der Bewegung
-    const reorder = Math.abs(drop) ** 0.5;
+    // 1. Drop-Achse (Fall aus der Rolle)
+    const drop = (power * volumen) - impuls;
 
-    // Schattenbewegung (forsaken)
-    const shadow = (rolle.power + markt.impuls) * 0.333;
+    // 2. Neutralpunkt nach dem Fall
+    const neutral = (power + volumen + impuls) / 3;
 
-    // Rückkehr in die Achse
-    const returnFlow = reorder + shadow;
+    // 3. Continuum-Achse (Neuordnung)
+    const continuum = Math.abs(drop) * neutral;
+
+    // 4. Schatten-Achse (forsaken)
+    const shadow = (power + marktImpuls) / 3;
+
+    // 5. Rückkehr in die Achse
+    const returnFlow = continuum + shadow;
 
     return {
         drop,
-        reorder,
+        neutral,
+        continuum,
         shadow,
         returnFlow
     };
