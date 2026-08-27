@@ -1,5 +1,9 @@
-// --- Systemobjekt für Virtual Marketplace ---
-const VEC = {
+/*
+  API.system.js · Virtual Marketplace Core
+  Open Door · Atomisch · Transparent · NC-kompatibel
+*/
+
+export const VEC = {
     active: true,
     vector: true,
     genie: true,
@@ -9,51 +13,60 @@ const VEC = {
     trades: []
 };
 
-// --- Kontrolle durch DOO/IT ---
-function DOO_control() {
+// 1 · Kontrolle durch DOO/IT
+export function DOO_control() {
     VEC.control = true;
     VEC.state = "control-ready";
-    return "DOO/IT Kontrolle aktiviert.";
+    return {
+        axis: "API",
+        step: "DOO_control",
+        state: VEC.state,
+        info: "DOO/IT Kontrolle aktiviert",
+        valid: true,
+        next: "DOO_control_next"
+    };
 }
 
-// --- DOOR Übergang ---
-function DOOR_passage() {
-    if (!VEC.control) {
-        VEC.passage = true;
-        VEC.state = "tmp-transition";
-        return "DOOR geöffnet (tmp) → Übergang ohne Kontrolle.";
-    }
+// 2 · DOOR Übergang
+export function DOOR_passage() {
     VEC.passage = true;
-    VEC.state = "stable-transition";
-    return "DOOR stabil geöffnet → Kontrolle aktiv.";
+
+    const mode = VEC.control
+        ? "stable-transition"
+        : "tmp-transition";
+
+    VEC.state = mode;
+
+    return {
+        axis: "API",
+        step: "DOOR_passage",
+        state: VEC.state,
+        info: `DOOR geöffnet → ${mode}`,
+        valid: true,
+        next: "DOOR_passage_next"
+    };
 }
 
-// --- VECTOR Routing ---
-function VECTOR_route(input) {
-    if (!VEC.passage) return "Kein Übergang aktiv.";
-    return `Routing über .VECTOR: ${input}`;
+// 3 · VECTOR Routing
+export function VECTOR_route(input) {
+    if (!VEC.passage) {
+        return {
+            axis: "API",
+            step: "VECTOR_route",
+            info: "Kein Übergang aktiv",
+            valid: false
+        };
+    }
+
+    return {
+        axis: "API",
+        step: "VECTOR_route",
+        route: input,
+        info: `Routing über .VECTOR: ${input}`,
+        valid: true,
+        next: "VECTOR_route_next"
+    };
 }
 
-// --- GENIE Bewertung ---
-function GENIE_rate(value) {
-    if (!VEC.genie) return "GENIE nicht aktiv.";
-    const score = Math.round(Math.random() * 100);
-    return `GENIE Bewertung für '${value}': ${score}`;
-}
-
-// --- Marketplace Trade ---
-function VEC_trade(item) {
-    if (!VEC.passage) return "Trade blockiert → kein Übergang.";
-    const rating = GENIE_rate(item);
-    VEC.trades.push({ item, rating });
-    return `Trade ausgeführt: ${item} → ${rating}`;
-}
-
-module.exports = {
-    VEC,
-    DOO_control,
-    DOOR_passage,
-    VECTOR_route,
-    GENIE_rate,
-    VEC_trade
-};
+// 4 · GENIE Bewertung
+export function
