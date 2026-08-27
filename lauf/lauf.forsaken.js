@@ -1,19 +1,28 @@
-// lauf.forsaken.js – alpha/beta/gamma – naxiom-gerecht
-
+// LAUF_FORSAKEN – COMIC alpha/beta/gamma-Achse
 export function LAUF_FORSAKEN(lauf) {
+    const impuls = lauf.impuls;
+    const richtung = lauf.richtung;
 
-    // alpha – Zerfall der Bewegung
-    const alpha = lauf.impuls - lauf.richtung;
+    // 1. alpha – Zerfall der Bewegung
+    const alpha = impuls - richtung;
 
-    // beta – Neuordnung
-    const beta = Math.abs(alpha) ** 0.5;
+    // 2. Neutralpunkt
+    const neutral = (impuls + richtung + alpha) / 3;
 
-    // gamma – Rückkehr
-    const gamma = beta + (lauf.impuls * 0.333);
+    // 3. beta – Neuordnung (Continuum)
+    const continuum = Math.abs(alpha) * neutral;
+    const beta = continuum ** 0.5;
+
+    // 4. gamma – Rückkehr (Sprung)
+    const sprung = beta + (impuls / 3);
+    const gamma = sprung;
 
     return {
         alpha,
+        neutral,
+        continuum,
         beta,
+        sprung,
         gamma
     };
 }
