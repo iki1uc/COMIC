@@ -1,25 +1,42 @@
-// picosso.js – dein Lieblingspinsel
+// picosso.js – organischer Impuls-Pinsel (keine Geometrie)
 
-export function PICOSSO(ctx, alpha, beta, gamma) {
+export function PICOSSO(alpha, beta, gamma) {
 
-    // alpha – Zerfall
-    ctx.strokeStyle = "#0f0";
-    ctx.beginPath();
-    ctx.moveTo(10, 150);
-    ctx.lineTo(150, 150 - alpha);
-    ctx.stroke();
+    // 1. Zerfall-Impuls
+    const zerfall = alpha * 0.8;
 
-    // beta – Neuordnung
-    ctx.strokeStyle = "#0a0";
-    ctx.beginPath();
-    ctx.moveTo(150, 150 - alpha);
-    ctx.lineTo(300, 150 - beta);
-    ctx.stroke();
+    // 2. Neuordnungs-Impuls
+    const neuordnung = beta * 0.6;
 
-    // gamma – Rückkehr
-    ctx.strokeStyle = "#050";
-    ctx.beginPath();
-    ctx.moveTo(300, 150 - beta);
-    ctx.lineTo(450, 150 - gamma);
-    ctx.stroke();
+    // 3. Rückkehr-Impuls
+    const rueckkehr = gamma * 0.4;
+
+    // 4. Gesamtimpuls (rein mathematisch)
+    const impuls = zerfall + neuordnung + rueckkehr;
+
+    // 5. Stabilität (Energie-Differenz)
+    const stabilität = 1 - Math.abs((neuordnung - zerfall) / (gamma + 1));
+
+    // 6. Organische KI-Form (ohne Geometrie)
+    const bio = {
+        growth: impuls * 0.3,
+        pulse: neuordnung * 0.2,
+        mutate: zerfall * 0.15,
+        branch: rueckkehr * 0.25,
+        hologram: {
+            shimmer: Math.abs(impuls * 0.1),
+            echo: neuordnung * 0.12,
+            wraith: rueckkehr * 0.08
+        }
+    };
+
+    return {
+        typ: "picosso.impuls",
+        zerfall,
+        neuordnung,
+        rueckkehr,
+        impuls,
+        stabilität,
+        bio
+    };
 }
