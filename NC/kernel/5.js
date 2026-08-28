@@ -1,0 +1,3 @@
+RESPO.LOG   = text("BOOT START")
+RESPO.ERROR = text("BOOT FAIL")
+RESPO.OK    = text("BOOT OK")
