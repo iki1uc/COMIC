@@ -1,0 +1,5 @@
+BOOT.VERSION = 1.0
+BOOT.TYPE = minimal-loader
+BOOT.ARCH = x86-real-mode
+BOOT.SIZE = 512b
+BOOT.ENTRY = 0x7C00
